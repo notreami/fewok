@@ -1,0 +1,95 @@
+//dsl - service domain layer
+
+sourceSets {
+    main {
+        resources {//指定资源目录
+            srcDir "${subprojectPath}${separator}main${separator}resources"
+        }
+    }
+}
+
+dependencies {
+    //compile 编译范围依赖在所有的classpath中可用，同时它们也会被打包。
+    //compileOnly 适用于编译期需要而打包时不需要的情况，java插件提供（gradle2.12时短暂的叫provided）
+    //providedCompile 编译、测试阶段需要依赖此类jar包，而运行阶段容器已经提供了相应的支持，所以无需将这些jar包打入war包，war插件提供（如：Servlet）
+    //providedRuntime 同proiveCompile类似。运行、测试的时候不需要，运行时需要，war插件提供
+    //runtime 运行、测试时所需的依赖,但编译时不需要。默认情况下，还包括编译时的依赖。
+    //testCompile  编译项目的测试源所需的依赖。默认情况下，还包括产品编译类和编译时的依赖。
+    //testRuntime  运行测试所需的依赖。默认情况下，还包括 编译，运行时和测试编译的依赖。
+
+    compile(
+
+            //防止包冲突
+            "org.slf4j:slf4j-api",
+            "cglib:cglib",
+            "org.springframework.boot:spring-boot-starter-aop",
+            
+            project(":fewok-common"),
+
+            //日志方案选择slf4j与log4j2集成,注意别使用commons-logging与jdk-logging、log4j1、logback的集成原理
+            "com.lmax:disruptor",
+            "org.apache.logging.log4j:log4j-web",
+            "org.springframework.boot:spring-boot-starter-log4j2",
+
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.boot:spring-boot-starter-security",
+
+            "org.springframework.boot:spring-boot-starter-actuator",
+            "org.springframework.boot:spring-boot-starter-hateoas",
+
+            //生成REST文档
+            "io.springfox:springfox-swagger-ui",
+
+            //                "org.springframework.boot:spring-boot-starter-validation",
+
+            //apache-Commons系列
+            "org.apache.commons:commons-lang3",
+            "org.apache.commons:commons-collections4",
+
+            //重试
+            "org.springframework.retry:spring-retry",
+            //http
+            "com.squareup.okhttp3:okhttp",
+            "io.github.openfeign:feign-okhttp",
+            "io.github.openfeign:feign-slf4j",
+
+            //缓存
+            "org.springframework.boot:spring-boot-starter-cache",
+            "com.github.ben-manes.caffeine:caffeine",
+
+            //XML
+            "javax.xml.bind:jaxb-api",
+            //JSON
+            "org.json:json",
+
+            //google的guava
+            "com.google.guava:guava",
+
+            //commons系列
+            "commons-codec:commons-codec",
+            "commons-io:commons-io",
+            "commons-fileupload:commons-fileupload",
+            //excel处理
+            "org.apache.poi:poi",
+
+            //RxJava
+            "io.reactivex.rxjava2:rxjava",
+
+
+
+            "org.springframework.data:spring-data-commons",
+            "org.springframework.boot:spring-boot-starter-jdbc",
+            //mysql数据源
+            "org.apache.tomcat:tomcat-jdbc",
+            //mybatis及对接Spring
+            "org.mybatis.spring.boot:mybatis-spring-boot-starter",
+            //mybatis 分页插件
+            "com.github.pagehelper:pagehelper"
+    )
+
+    runtime(
+            //mysql驱动
+            "mysql:mysql-connector-java",
+            "org.springframework.boot:spring-boot-devtools"
+    )
+}

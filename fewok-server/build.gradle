@@ -1,0 +1,66 @@
+apply plugin: "docker"
+bootRepackage.enabled = true
+bootRun.enabled = true
+
+
+sourceSets {
+    main {
+        resources {//指定资源目录
+            srcDir "${subprojectPath}${separator}main${separator}resources${separator}base"
+            srcDir "${subprojectPath}${separator}main${separator}resources${separator}${projectEnv}"
+        }
+    }
+    test {
+        java {//指定java代码目录
+            srcDir "${subprojectPath}${separator}test${separator}java"
+            exclude "resources${separator}**"
+        }
+        resources {//指定资源目录
+            srcDir "${subprojectPath}${separator}test${separator}resources"
+        }
+    }
+}
+
+dependencies {
+    compile(
+            project(":fewok-api"),
+            project(":fewok-ui")
+    )
+    testCompile(
+            "org.projectlombok:lombok",
+            "org.testng:testng",
+            "org.springframework.boot:spring-boot-starter-test",
+            "org.springframework.security:spring-security-test",
+            "com.squareup.okhttp3:mockwebserver"
+    )
+
+}
+
+jar {
+    baseName = project.rootProject.name
+    version = ""//打包文件名不添加版本号
+    manifest {
+        attributes "Manifest-Version": project.version,
+                "Built-By": System.getProperty("user.name"),
+                "Built-Date": new Date().format("yyyy-MM-dd HH:mm:ss SSS"),
+                "description": project.description,
+                "Target-JDK": project.targetCompatibility,
+                "Built-Gradle": gradle.gradleVersion,
+                "Built-JDK": System.getProperty("java.version")
+    }
+}
+
+//docker生成image
+task buildDocker(type: Docker, dependsOn: build) {
+    push = true
+    applicationName = jar.baseName
+    dockerfile = file("${subprojectPath}${separator}docker${separator}Dockerfile")
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}
+
+buildDocker.dependsOn(build)

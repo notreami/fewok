@@ -1,0 +1,86 @@
+context:
+  listener:
+    classes: com.fewok.server.component.ApplicationEventListener
+
+logging:
+  config: classpath:log4j2.xml
+
+management:
+  context-path: /projectManage
+  port: 34613
+  security:
+    enabled: true
+  shell:
+    ssh:
+      enabled: false
+    telnet:
+      enabled: false
+
+spring:
+  aop:
+    auto: true
+    proxy-target-class: false  #基于标准的基于Java接口的代理
+  cache:
+    type: caffeine
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
+    multipart:
+      enabled: true
+      max-file-size: 1MB
+      max-request-size: 10MB
+  mvc:
+    favicon:
+      enabled: false
+  metrics:
+    export:
+      enabled: false
+  profiles:
+    active: dev
+  session:
+    store-type: none
+  webservices:
+    path: /
+  transaction:
+    default-timeout: 10000
+    rollback-on-commit-failure: true
+
+
+server:
+  port: 39368
+  connection-timeout: 10000
+  context-path: /  #应用程序的上下文路径。
+  display-name: "big-backend"
+  error:
+      path: /error #错误页，指定发生错误时，跳转的URL
+      whitelabel:
+        enabled: true #在服务器发生错误的情况下，启用浏览器中显示的默认错误页面。
+  servlet-path: /  #主调度程序servlet的路径。
+  use-forward-headers: true #如果X-Forwarded- *头应该应用于HttpRequest。
+  tomcat:
+    accesslog:
+      directory: /opt/logs/fewok/access
+      enabled: true
+      # 访问时间 线程名 '本机IP:端口/远程主机的IP:端口' '请求方式 请求路径 请求协议'  HTTP状态码  '处理请求所耗费的毫秒数/秒数' '发送字节数' '内容类型'
+      pattern: "%t %I '%A:%p/%a:%p' '%m %U %H' %s '%D ms=%T s' '%b/%B/%{Content-Length}o' '%{Content-Type}o' '%{User-Agent}i' '%{Referer}i'"
+      request-attributes-enabled: true
+    max-threads: 20  #tomcat起动的最大线程数，即同时处理的任务个数，默认值为200
+    max-connections: 18 #Tomcat一瞬间最多能够处理的并发连接数
+    accept-count: 20 #当tomcat起动的线程数达到最大时，接受排队的请求个数，默认值为100
+    max-http-post-size: 2048  #HTTP发布或放置内容的最大大小（以字节为单位）
+    port-header: "X-Forwarded-Port"   #nginx   proxy_set_header X-Forwarded-Port $server_port;
+    protocol-header: "X-Forwarded-Proto" #nginx  proxy_set_header X-Forwarded-Proto $scheme;
+    remote-ip-header: "X-Forwarded-For"  #nginx  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    uri-encoding: UTF-8
+
+security:
+  basic:
+    enabled: true
+    path: /AppManage
+  user:
+    name: fewok
+    password: Z##w$@*&wVGGaZ^uD5tL$n^75LEf6o

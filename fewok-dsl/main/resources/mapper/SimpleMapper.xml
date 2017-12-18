@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fewok.dsl.db.mapper.SimpleMapper">
+
+    <sql id="tableName">m_simple_test</sql>
+
+    <sql id="fields">createtime, updatetime</sql>
+    <sql id="allFields">
+        id,
+        <include refid="fields"/>
+    </sql>
+
+    <select id="selectSimpleDomainByAll" resultType="com.fewok.dsl.db.domain.SimpleDomain">
+        select
+        <include refid="allFields"/>
+        from
+        <include refid="tableName"/>
+    </select>
+</mapper>

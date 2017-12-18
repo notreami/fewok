@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Properties>
+        <Property name="LOG_HOME">/opt/logs/fewok</Property>
+    </Properties>
+    <Appenders>
+        <Console name="consolePrint" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="%d{DEFAULT} [%t] %-5p (%C{1}:%L) - %m%n" charset="UTF-8"/>
+        </Console>
+
+        <RollingRandomAccessFile name="infoFile" fileName="${LOG_HOME}/info.log"
+                                 immediateFlush="false"
+                                 filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{DEFAULT} %t %-5p (%C{1}:%L) - %m%n" charset="UTF-8"/>
+            <Policies>
+                <!--每天更新一次-->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" />
+                <!--每个文件最多1G-->
+                <SizeBasedTriggeringPolicy size="1000 MB"/>
+            </Policies>
+            <!--最多保存30条-->
+            <DefaultRolloverStrategy max="30"/>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="errorFile" fileName="${LOG_HOME}/error.log"
+                                 immediateFlush="false"
+                                 filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{DEFAULT} %t %-5p (%C{1}:%L) - %m%n" charset="UTF-8"/>
+            <Policies>
+                <!--每天更新一次-->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" />
+                <!--每个文件最多1G-->
+                <SizeBasedTriggeringPolicy size="1000 MB"/>
+            </Policies>
+            <!--最多保存30条-->
+            <DefaultRolloverStrategy max="30"/>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="fatalFile" fileName="${LOG_HOME}/fatal.log"
+                                 immediateFlush="false"
+                                 filePattern="${LOG_HOME}/$${date:yyyy-MM}/fatal-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{DEFAULT} %t %-5p (%C{1}:%L) - %m%n" charset="UTF-8"/>
+            <Policies>
+                <!--每天更新一次-->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" />
+                <!--每个文件最多1G-->
+                <SizeBasedTriggeringPolicy size="1000 MB"/>
+            </Policies>
+            <!--最多保存30条-->
+            <DefaultRolloverStrategy max="30"/>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="specialFile" fileName="${LOG_HOME}/special.log"
+                                 immediateFlush="false"
+                                 filePattern="${LOG_HOME}/$${date:yyyy-MM}/special-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="%d{DEFAULT} %t %-5p (%C{1}:%L) - %m%n" charset="UTF-8"/>
+            <Policies>
+                <!--每天更新一次-->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1" />
+                <!--每个文件最多1G-->
+                <SizeBasedTriggeringPolicy size="1000 MB"/>
+            </Policies>
+            <!--最多保存30条-->
+            <DefaultRolloverStrategy max="30"/>
+        </RollingRandomAccessFile>
+
+    </Appenders>
+
+    <Loggers>
+        <AsyncLogger name="special" level="INFO" includeLocation="true" additivity="false">
+            <AppenderRef ref="specialFile"/>
+        </AsyncLogger>
+        <!-- Root Logger -->
+        <AsyncRoot level="INFO" includeLocation="true">
+            <AppenderRef ref="consolePrint"/>
+            <AppenderRef ref="infoFile"/>
+            <AppenderRef ref="errorFile" level="WARN"/>
+            <AppenderRef ref="fatalFile" level="FATAL"/>
+        </AsyncRoot>
+        <Logger name="com.fewok.dsl.db.mapper" level="TRACE" includeLocation="true"
+                additivity="false">
+            <AppenderRef ref="consolePrint"/>
+        </Logger>
+    </Loggers>
+</Configuration>

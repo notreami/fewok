@@ -1,0 +1,62 @@
+apply plugin: "com.moowork.node"
+
+node {
+    // Version of node to use.
+    version = "8.9.3"
+
+    // Version of npm to use.
+    npmVersion = "5.5.1"
+
+    // Version of Yarn to use.
+    yarnVersion = "1.3.2"
+
+    // Base URL for fetching node distributions (change if you have a mirror).
+    distBaseUrl = "https://nodejs.org/dist"
+
+    // If true, it will download node using above parameters.
+    // If false, it will try to use globally installed node.
+    download = true
+
+    // Set the work directory for unpacking node
+    workDir = file("./../.gradle")
+
+    // Set the work directory for NPM
+    npmWorkDir = file("./../.gradle")
+
+    // Set the work directory for Yarn
+    yarnWorkDir = file("./../.gradle")
+
+    // Set the work directory where node_modules should be located
+    nodeModulesDir = file("./node_modules")
+}
+
+yarn_upgrade() {
+    group = "build"
+}
+
+task yarn_build(type: YarnTask, dependsOn: yarn_install) {
+    group = "build"
+    args = ["run", "build"]
+}
+
+task yarn_start(type: YarnTask) {
+    group = "application"
+    args = ["run", "start"]
+}
+
+task yarn_stop(type: YarnTask) {
+    group = "application"
+    args = ["run", "stop"]
+}
+
+task yarn_check(type: YarnTask) {
+    group = "verification"
+    args = ["run", "test"]
+}
+
+
+check.dependsOn(yarn_check)
+yarn_install.dependsOn(yarn_cache_clean)
+
+//复制代码到指定路径
+jar.dependsOn(yarn_build)

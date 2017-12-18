@@ -1,0 +1,181 @@
+buildscript {
+    ext {
+        //profile
+        if (project.hasProperty("projectEnv")) {
+            projectEnv = project["projectEnv"]
+        } else {
+            projectEnv = "dev"
+        }
+        println "project environment:" + projectEnv
+        //插件版本
+        springBootVersion = "1.5.9.RELEASE"
+        dependencyVersion = "1.0.4.RELEASE"
+        gradleDockerVersion = "1.2"
+        gradleNodeVersion = "1.2.0"
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/repositories/central/" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath(
+                "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}",
+                "io.spring.gradle:dependency-management-plugin:${dependencyVersion}",
+                "se.transmode.gradle:gradle-docker:${gradleDockerVersion}",
+                "com.moowork.gradle:gradle-node-plugin:${gradleNodeVersion}"
+        )
+    }
+}
+
+//配置所有的子Project的公共部分（不包含root Project）
+subprojects {
+    ext {
+        subprojectPath = project.getProjectDir().getPath();
+        separator = File.separator
+    }
+
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "org.springframework.boot"
+    //默认module 不创建bootRepackage，不执行bootRun
+    bootRepackage.enabled = false
+    bootRun.enabled = false
+
+    group "com.fewok"
+    version "0.0.1-SNAPSHOT"
+    description project.name
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    /*解决设置版本不起作用问题*/
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = JavaVersion.VERSION_1_8// 设置 JDK 版本
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/repositories/central/" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+    }
+
+    //修改默认的依赖版本
+    ext {
+        ext["json.version"] = "20171018"
+        ext["caffeine.version"] = "2.6.0"
+
+    }
+    //依赖管理（依赖版本管理）
+    dependencyManagement {
+        dependencies {
+            dependency "org.slf4j:slf4j-api:1.7.25"
+            dependency "cglib:cglib:3.2.5"
+            dependency "javax.xml.bind:jaxb-api:2.3.0"
+            dependency "org.apache.poi:poi:3.17"
+            dependency "com.opencsv:opencsv:4.1"
+
+            dependency "com.alibaba:fastjson:1.2.44"
+            dependency "io.springfox:springfox-swagger2:2.7.0"
+            dependency "io.springfox:springfox-swagger-ui:2.7.0"
+
+            dependency "com.lmax:disruptor:3.3.7"
+            dependencySet(group: "org.apache.logging.log4j", version: "2.10.0") {
+                entry "log4j-api"
+                entry "log4j-core"
+                entry "log4j-slf4j-impl"
+                entry "log4j-web"
+            }
+
+            dependency "org.apache.commons:commons-lang3:3.7"
+            dependency "org.apache.commons:commons-collections4:4.1"
+
+            dependencySet(group: "com.squareup.okhttp3", version: "3.9.1") {
+                entry "okhttp"
+                entry "mockwebserver"
+            }
+            dependencySet(group: "io.github.openfeign", version: "9.5.1") {
+                entry "feign-okhttp"
+                entry "feign-slf4j"
+            }
+
+            dependency "com.google.guava:guava:23.5-jre"
+            dependency "commons-io:commons-io:2.6"
+            dependency "commons-fileupload:commons-fileupload:1.3.3"
+
+            dependency "io.reactivex.rxjava2:rxjava:2.1.7"
+
+
+            dependency "mysql:mysql-connector-java:6.0.6"
+            dependencySet(group: "org.apache.tomcat", version: "9.0.2") {
+                entry "tomcat-jdbc"
+                entry "tomcat-annotations-api"
+            }
+            dependency "org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.1"
+            dependency "com.github.pagehelper:pagehelper:5.1.2"
+            dependency "ma.glasnost.orika:orika-core:1.5.2"
+
+            dependency "org.testng:testng:6.13.1"
+        }
+    }
+
+    //依赖排除
+    configurations {
+        all*.exclude module: "spring-boot-starter-logging"
+        all*.exclude group: "log4j", module: "log4j"
+        all*.exclude group: "org.slf4j", module: "slf4j-log4j12"
+        all*.exclude group: "org.slf4j", module: "slf4j-jdk14"
+        all*.exclude group: "org.apache.logging.log4j", module: "log4j-to-slf4j"
+        all*.exclude group: "org.slf4j", module: "slf4j-jcl"
+        all*.exclude group: "ch.qos.logback", module: "logback-classic"
+        all*.exclude group: "org.codehaus.jackson"
+        all*.exclude group: "junit"
+    }
+
+    if (!subprojectPath.contains("fewok-ui")) {
+        //源码路径设置,排除fewok-ui
+        sourceSets {
+            main {
+                java {//指定java代码目录
+                    srcDir "${subprojectPath}${separator}main${separator}java"
+                    exclude "resources${separator}**"
+                }
+            }
+        }
+
+        //特殊依赖（需要每个模块都添加的依赖）
+        dependencies {
+            compileOnly(
+                    "org.projectlombok:lombok"
+            )
+        }
+
+        //增量编译
+        tasks.withType(JavaCompile) {
+            options.incremental = true
+        }
+
+        //是否自动下载依赖源码和javadoc
+        idea {
+            module {
+                downloadJavadoc = false
+                downloadSources = false
+            }
+        }
+    }
+
+    //强制使用gradle
+    task wrapper(type: Wrapper) {
+        gradleVersion = "4.4"
+    }
+
+    //清除out目录
+    clean {
+        delete file("${subprojectPath}${separator}out")
+    }
+}
