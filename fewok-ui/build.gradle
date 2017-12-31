@@ -33,7 +33,7 @@ node {
 task yarn_temp_build(type: YarnTask, dependsOn: yarn_install) {
     args = ["run", "build"]
 }
-yarn_install.dependsOn(yarn_cache_clean)
+yarn_install.dependsOn(clean)
 
 yarn_upgrade() {
     group = "build"
