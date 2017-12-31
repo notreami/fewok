@@ -28,8 +28,13 @@ module.exports = function override(config, env) {
         modifyVars: {"@primary-color": "#1DA57A"},
     })(config, env);
 
-    //react热加载
-    config = rewireReactHotLoader(config, env);
+    //根据环境设置
+    console.log("ui project environment:" + process.env.NODE_ENV);
+    if (process.env.NODE_ENV === 'production') {
 
+    } else {
+        //react热加载
+        config = rewireReactHotLoader(config, env);
+    }
     return config;
 };

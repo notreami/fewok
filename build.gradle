@@ -6,7 +6,7 @@ buildscript {
         } else {
             projectEnv = "dev"
         }
-        println "project environment:" + projectEnv
+        println "total project environment:" + projectEnv
         //插件版本
         springBootVersion = "1.5.9.RELEASE"
         dependencyVersion = "1.0.4.RELEASE"
