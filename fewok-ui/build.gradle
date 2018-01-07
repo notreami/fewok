@@ -30,10 +30,18 @@ node {
     nodeModulesDir = file("./node_modules")
 }
 
-task yarn_temp_build(type: YarnTask, dependsOn: yarn_install) {
+sourceSets {
+    main {
+        resources {//指定资源目录
+            srcDir "${subprojectPath}${separator}main${separator}resources"
+        }
+    }
+}
+
+task yarn_build(type: YarnTask, dependsOn: yarn_install) {
     args = ["run", "build"]
 }
-yarn_install.dependsOn(clean)
+yarn_build.dependsOn(yarn_cache_clean)
 
 yarn_upgrade() {
     group = "build"
@@ -54,27 +62,5 @@ task yarn_check(type: YarnTask) {
     args = ["run", "test"]
 }
 check.dependsOn(yarn_check)
-
-task syncCopyBuildtoDist(type: Sync, dependsOn: yarn_temp_build) {
-    from "${subprojectPath}${separator}build"
-    into "${subprojectPath}${separator}dist"
-}
-
-task syncDeleteBuild(type: Delete, dependsOn: syncCopyBuildtoDist) {
-    delete "${subprojectPath}${separator}build"
-    followSymlinks = true
-}
-
-task syncCopyDisttoBuild(type: Sync, dependsOn: syncDeleteBuild) {
-    from "${subprojectPath}${separator}dist"
-    into "${subprojectPath}${separator}build/resources/main/static"
-}
-
-task yarn_build(type: Delete, dependsOn: syncCopyDisttoBuild) {
-    group = "build"
-    delete "${subprojectPath}${separator}dist"
-    followSymlinks = true
-}
-
 //复制代码到指定路径
 jar.dependsOn(yarn_build)

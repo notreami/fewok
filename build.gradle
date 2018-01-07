@@ -137,35 +137,32 @@ subprojects {
         all*.exclude group: "junit"
     }
 
-    if (!subprojectPath.contains("fewok-ui")) {
-        //源码路径设置,排除fewok-ui
-        sourceSets {
-            main {
-                java {//指定java代码目录
-                    srcDir "${subprojectPath}${separator}main${separator}java"
-                    exclude "resources${separator}**"
-                }
+    sourceSets {
+        main {
+            java {//指定java代码目录
+                srcDir "${subprojectPath}${separator}main${separator}java"
+                exclude "resources${separator}**"
             }
         }
+    }
 
-        //特殊依赖（需要每个模块都添加的依赖）
-        dependencies {
-            compileOnly(
-                    "org.projectlombok:lombok"
-            )
-        }
+    //特殊依赖（需要每个模块都添加的依赖）
+    dependencies {
+        compileOnly(
+                "org.projectlombok:lombok"
+        )
+    }
 
-        //增量编译
-        tasks.withType(JavaCompile) {
-            options.incremental = true
-        }
+    //增量编译
+    tasks.withType(JavaCompile) {
+        options.incremental = true
+    }
 
-        //是否自动下载依赖源码和javadoc
-        idea {
-            module {
-                downloadJavadoc = false
-                downloadSources = false
-            }
+    //是否自动下载依赖源码和javadoc
+    idea {
+        module {
+            downloadJavadoc = false
+            downloadSources = false
         }
     }
 
