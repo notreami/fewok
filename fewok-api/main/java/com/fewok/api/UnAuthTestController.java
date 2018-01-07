@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 /**
  * 未授权认证测试接口
+ *
  * @author notreami on 17/9/8.
  */
 @Slf4j
@@ -46,4 +48,8 @@ public class UnAuthTestController {
         return CommonOutput.createSuccess(objectMap);
     }
 
+    @GetMapping({"/**/*.html"})
+    public String testHold(HttpServletRequest request) {
+        return request.getServletPath();
+    }
 }

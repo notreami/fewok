@@ -38,7 +38,7 @@ public class AuthenticationFilter extends GenericFilterBean {
 
             List<GrantedAuthority> authorities = Lists.newArrayList();
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-//            authorities.add(new SimpleGrantedAuthority("AUTH_WRITE"));
+            authorities.add(new SimpleGrantedAuthority("AUTH_WRITE"));
             // 生成令牌
             Authentication authentication = new PreAuthenticatedAuthenticationToken("admin", "123456", authorities);
 
