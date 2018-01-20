@@ -13,7 +13,7 @@ import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.UiConfiguration;
+import springfox.documentation.swagger.web.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
@@ -22,6 +22,7 @@ import java.util.List;
  * api接口文档
  * http://localhost:39368/swagger-ui.html
  * wiki：https://springfox.github.io/springfox/docs/current/#quick-start-guides
+ *
  * @author notreami on 17/11/27.
  */
 @Configuration
@@ -81,15 +82,20 @@ public class WebSwagger2Config extends WebMvcConfigurerAdapter {
      */
     @Bean
     UiConfiguration uiConfig() {
-        return new UiConfiguration(
-                null,// url
-                "none",       // docExpansion          => none | list
-                "alpha",      // apiSorter             => alpha
-                "schema",     // defaultModelRendering => schema
-                UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS,
-                false,        // enableJsonEditor      => true | false
-                true,         // showRequestHeaders    => true | false
-                60000L);      // requestTimeout => in milliseconds, defaults to null (uses jquery xh timeout)
-
+        return UiConfigurationBuilder.builder()
+                .deepLinking(true)
+                .displayOperationId(false)
+                .defaultModelsExpandDepth(1)
+                .defaultModelExpandDepth(1)
+                .defaultModelRendering(ModelRendering.EXAMPLE)
+                .displayRequestDuration(false)
+                .docExpansion(DocExpansion.NONE)
+                .filter(false)
+                .maxDisplayedTags(null)
+                .operationsSorter(OperationsSorter.ALPHA)
+                .showExtensions(false)
+                .tagsSorter(TagsSorter.ALPHA)
+                .validatorUrl(null)
+                .build();
     }
 }
