@@ -1,5 +1,6 @@
 package com.fewok.common.common;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fewok.common.util.JsonBinder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,11 +33,13 @@ public class CommonOutput<T> {
     /**
      * 泛型数据ClassName
      */
+    @JSONField(serialize = false)
     private String dataClassName;
 
     /**
      * 泛型数据JSON str
      */
+    @JSONField(serialize = false)
     private String dataJsonValue;
 
     /**

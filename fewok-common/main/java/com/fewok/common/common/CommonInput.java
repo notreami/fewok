@@ -1,5 +1,6 @@
 package com.fewok.common.common;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fewok.common.enums.OperatorType;
 import com.fewok.common.enums.ProcessType;
 import com.fewok.common.util.JsonBinder;
@@ -37,11 +38,13 @@ public class CommonInput<T extends BaseInput> {
     /**
      * 泛型数据ClassName
      */
+    @JSONField(serialize = false)
     private String dataClassName;
 
     /**
      * 泛型数据JSON串
      */
+    @JSONField(serialize = false)
     private String dataJsonValue;
     /**
      * 操作对应的数据
