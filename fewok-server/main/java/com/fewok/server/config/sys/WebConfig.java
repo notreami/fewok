@@ -197,13 +197,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         });
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/" ).setViewName( "forward:/index.html");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        super.addViewControllers(registry);
-    }
-
     /**
      * 替换默认线程池
      *
