@@ -23,7 +23,6 @@ sourceSets {
 
 dependencies {
     compile(
-            project(":fewok-api"),
             project(":fewok-ui")
     )
     testCompile(
@@ -31,7 +30,8 @@ dependencies {
             "org.testng:testng",
             "org.springframework.boot:spring-boot-starter-test",
             "org.springframework.security:spring-security-test",
-            "com.squareup.okhttp3:mockwebserver"
+            "com.squareup.okhttp3:mockwebserver",
+            "org.thymeleaf:thymeleaf-testing"
     )
 
 }

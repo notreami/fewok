@@ -38,6 +38,17 @@ sourceSets {
     }
 }
 
+dependencies {
+    compile(
+            project(":fewok-api"),
+            "org.springframework.boot:spring-boot-starter-thymeleaf",
+            "org.thymeleaf.extras:thymeleaf-extras-java8time",
+            "org.thymeleaf.extras:thymeleaf-extras-springsecurity4"
+    )
+}
+
+
+
 task yarn_build(type: YarnTask, dependsOn: yarn_install) {
     args = ["run", "build"]
 }
@@ -61,6 +72,6 @@ task yarn_check(type: YarnTask) {
     group = "verification"
     args = ["run", "test"]
 }
-check.dependsOn(yarn_check)
+//check.dependsOn(yarn_check)
 //复制代码到指定路径
-jar.dependsOn(yarn_build)
+//jar.dependsOn(yarn_build)
