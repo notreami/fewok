@@ -48,7 +48,12 @@ spring:
   transaction:
     default-timeout: 10000
     rollback-on-commit-failure: true
-
+  thymeleaf:
+    cache: true
+    enabled: true
+    encoding: UTF-8
+    suffix: .html
+    mode: HTML5
 
 server:
   port: 39368
@@ -76,6 +81,10 @@ server:
     protocol-header: "X-Forwarded-Proto" #nginx  proxy_set_header X-Forwarded-Proto $scheme;
     remote-ip-header: "X-Forwarded-For"  #nginx  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     uri-encoding: UTF-8
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 2048
 
 security:
   basic:
