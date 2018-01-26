@@ -6,9 +6,11 @@ import com.fewok.common.common.CommonOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.ZonedDateTime;
@@ -51,5 +53,17 @@ public class UnAuthTestController {
     @GetMapping({"/**/*.html"})
     public String testHold(HttpServletRequest request) {
         return request.getServletPath();
+    }
+
+    @GetMapping("/freemarker1")
+    public ModelAndView freemarker1(){
+        ModelAndView modelAndView = new ModelAndView("freemarker");
+//        modelAndView.addObject("message", "服务器异常,请重试");
+        return modelAndView;
+    }
+
+    @GetMapping("/freemarker2")
+    public String freemarker2(Model model){
+        return "freemarker";
     }
 }

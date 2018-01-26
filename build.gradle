@@ -69,10 +69,6 @@ subprojects {
     ext {
         ext["json.version"] = "20171018"
         ext["caffeine.version"] = "2.6.1"
-        ext["thymeleaf.version"] = "3.0.9.RELEASE"
-        ext["thymeleaf-extras-springsecurity4.version"] = "3.0.2.RELEASE"
-        ext["thymeleaf-layout-dialect.version"] = "2.2.2"
-        ext["thymeleaf-extras-java8time.version"] = "3.0.1.RELEASE"
 
     }
     //依赖管理（依赖版本管理）
@@ -125,7 +121,6 @@ subprojects {
             dependency "ma.glasnost.orika:orika-core:1.5.2"
 
             dependency "org.testng:testng:6.13.1"
-            dependency "org.thymeleaf:thymeleaf-testing:3.0.3.RELEASE"
         }
     }
 
