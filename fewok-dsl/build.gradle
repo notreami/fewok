@@ -35,9 +35,6 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-web",
             "org.springframework.boot:spring-boot-starter-security",
 
-            "org.springframework.boot:spring-boot-starter-actuator",
-            "org.springframework.boot:spring-boot-starter-hateoas",
-
             //生成REST文档
             "io.springfox:springfox-swagger-ui",
 

@@ -23,8 +23,9 @@ spring:
   cache:
     type: caffeine
   devtools:
-    restart:
-      enabled: true
+    remote:
+      debug:
+        enabled: false
   http:
     encoding:
       charset: UTF-8

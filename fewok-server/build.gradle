@@ -23,7 +23,9 @@ sourceSets {
 
 dependencies {
     compile(
-            project(":fewok-ui")
+            project(":fewok-ui"),
+            "org.springframework.boot:spring-boot-starter-actuator",
+            "org.springframework.boot:spring-boot-starter-hateoas"
     )
     testCompile(
             "org.projectlombok:lombok",
