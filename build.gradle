@@ -155,9 +155,6 @@ subprojects {
         compileOnly(
                 "org.projectlombok:lombok"
         )
-        runtime(
-                "org.springframework.boot:spring-boot-devtools"
-        )
     }
 
     //增量编译
