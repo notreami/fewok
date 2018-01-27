@@ -29,6 +29,7 @@ dependencies {
             //日志方案选择slf4j与log4j2集成,注意别使用commons-logging与jdk-logging、log4j1、logback的集成原理
             "com.lmax:disruptor",
             "org.apache.logging.log4j:log4j-web",
+            "org.apache.logging.log4j:log4j-1.2-api",
             "org.springframework.boot:spring-boot-starter-log4j2",
 
             "org.springframework.boot:spring-boot-starter-web",
@@ -89,7 +90,6 @@ dependencies {
 
     runtime(
             //mysql驱动
-            "mysql:mysql-connector-java",
-            "org.springframework.boot:spring-boot-devtools"
+            "mysql:mysql-connector-java"
     )
 }

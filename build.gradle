@@ -88,6 +88,7 @@ subprojects {
             dependencySet(group: "org.apache.logging.log4j", version: "2.10.0") {
                 entry "log4j-api"
                 entry "log4j-core"
+                entry "log4j-1.2-api"
                 entry "log4j-slf4j-impl"
                 entry "log4j-web"
             }
@@ -127,11 +128,14 @@ subprojects {
     //依赖排除
     configurations {
         all*.exclude module: "spring-boot-starter-logging"
+        all*.exclude group: "commons-logging",module: "commons-logging"
         all*.exclude group: "log4j", module: "log4j"
-        all*.exclude group: "org.slf4j", module: "slf4j-log4j12"
         all*.exclude group: "org.slf4j", module: "slf4j-jdk14"
+        all*.exclude group: "org.slf4j", module: "slf4j-log4j12"
+        all*.exclude group: "org.apache.logging.log4j", module: "log4j-jcl"
         all*.exclude group: "org.apache.logging.log4j", module: "log4j-to-slf4j"
         all*.exclude group: "org.slf4j", module: "slf4j-jcl"
+        all*.exclude group: "ch.qos.logback", module: "logback-core"
         all*.exclude group: "ch.qos.logback", module: "logback-classic"
         all*.exclude group: "org.codehaus.jackson"
         all*.exclude group: "junit"
@@ -150,6 +154,9 @@ subprojects {
     dependencies {
         compileOnly(
                 "org.projectlombok:lombok"
+        )
+        runtime(
+                "org.springframework.boot:spring-boot-devtools"
         )
     }
 

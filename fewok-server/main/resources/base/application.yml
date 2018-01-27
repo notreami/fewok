@@ -22,6 +22,9 @@ spring:
     proxy-target-class: false  #基于标准的基于Java接口的代理
   cache:
     type: caffeine
+  devtools:
+    restart:
+      enabled: true
   http:
     encoding:
       charset: UTF-8
@@ -49,7 +52,7 @@ spring:
     default-timeout: 10000
     rollback-on-commit-failure: true
   freemarker:
-    cache: true
+    cache: false
     enabled: true
 
 server:
