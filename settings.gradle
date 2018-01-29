@@ -1,3 +1,4 @@
 //rootProject.name = 'fewok'
 //如果需要打jar包，则放在common之后，dsl之前增加rpc-common，另额外增加rpc-client
 include "fewok-common", "fewok-dsl", "fewok-biz", "fewok-api", "fewok-ui", "fewok-server"
+rootProject.name = "fewok-server"
