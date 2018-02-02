@@ -1,32 +1,12 @@
-apply plugin: "docker"
-bootRepackage.enabled = true
-bootRun.enabled = true
-
-
-sourceSets {
-    main {
-        resources {//指定资源目录
-            srcDir "${subprojectPath}${separator}main${separator}resources${separator}base"
-            srcDir "${subprojectPath}${separator}main${separator}resources${separator}${projectEnv}"
-        }
-    }
-    test {
-        java {//指定java代码目录
-            srcDir "${subprojectPath}${separator}test${separator}java"
-            exclude "resources${separator}**"
-        }
-        resources {//指定资源目录
-            srcDir "${subprojectPath}${separator}test${separator}resources"
-        }
-    }
-}
+apply plugin: "org.springframework.boot"
 
 dependencies {
+    apply from: file("${rootProjectPath}fewok-common${separator}dependencies.gradle"), to: dependencies
+    apply from: file("${rootProjectPath}fewok-dsl${separator}dependencies.gradle"), to: dependencies
+    apply from: file("${rootProjectPath}fewok-api${separator}dependencies.gradle"), to: dependencies
     compile(
-            project(":fewok-ui"),
             "org.springframework.boot:spring-boot-starter-actuator",
-            "org.springframework.boot:spring-boot-starter-hateoas",
-            "org.springframework.boot:spring-boot-devtools"
+            "org.springframework.boot:spring-boot-starter-hateoas"
     )
     testCompile(
             "org.projectlombok:lombok",
@@ -35,8 +15,37 @@ dependencies {
             "org.springframework.security:spring-security-test",
             "com.squareup.okhttp3:mockwebserver"
     )
-
+    runtime(
+            "org.springframework.boot:spring-boot-devtools"
+    )
 }
+
+sourceSets {
+    main {
+        java {//指定java代码目录
+            srcDir "${rootProjectPath}fewok-common${separator}java"
+            srcDir "${rootProjectPath}fewok-dsl${separator}java"
+            srcDir "${rootProjectPath}fewok-biz${separator}java"
+            srcDir "${rootProjectPath}fewok-api${separator}java"
+        }
+        resources {//指定资源目录
+            srcDir "${rootProjectPath}fewok-dsl${separator}resources"
+            srcDir "${rootProjectPath}fewok-api${separator}resources"
+            srcDir "${subprojectPath}main${separator}resources${separator}base"
+            srcDir "${subprojectPath}main${separator}resources${separator}${projectEnv}"
+        }
+    }
+    test {
+        java {//指定java代码目录
+            srcDir "${subprojectPath}test${separator}java"
+            exclude "resources${separator}**"
+        }
+        resources {//指定资源目录
+            srcDir "${subprojectPath}test${separator}resources"
+        }
+    }
+}
+
 
 jar {
     baseName = project.rootProject.name
@@ -52,17 +61,5 @@ jar {
     }
 }
 
-//docker生成image
-task buildDocker(type: Docker, dependsOn: build) {
-    push = true
-    applicationName = jar.baseName
-    dockerfile = file("${subprojectPath}${separator}docker${separator}Dockerfile")
-    doFirst {
-        copy {
-            from jar
-            into stageDir
-        }
-    }
-}
-
-buildDocker.dependsOn(build)
+apply from: file("${rootProjectPath}fewok-api${separator}ssr.gradle")
+apply from: file("${subprojectPath}docker${separator}docker.gradle")

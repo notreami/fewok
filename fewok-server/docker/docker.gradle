@@ -1,0 +1,14 @@
+apply plugin: "docker"
+
+//docker生成image
+task buildDocker(type: Docker, dependsOn: build) {
+    push = true
+    applicationName = jar.baseName
+    dockerfile = file("${subprojectPath}docker${separator}Dockerfile")
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}

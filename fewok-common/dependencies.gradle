@@ -1,0 +1,6 @@
+compile(
+        "com.alibaba:fastjson",
+
+        //生成REST文档
+        "io.springfox:springfox-swagger2"
+)

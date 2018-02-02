@@ -8,7 +8,7 @@ buildscript {
         }
         println "total project environment:" + projectEnv
         //插件版本
-        springBootVersion = "1.5.9.RELEASE"
+        springBootVersion = "1.5.10.RELEASE"
         dependencyVersion = "1.0.4.RELEASE"
         gradleDockerVersion = "1.2"
         gradleNodeVersion = "1.2.0"
@@ -34,16 +34,14 @@ buildscript {
 //配置所有的子Project的公共部分（不包含root Project）
 subprojects {
     ext {
-        subprojectPath = project.getProjectDir().getPath();
         separator = File.separator
+        rootProjectPath = project.getRootDir().getPath() + separator;
+        subprojectPath = project.getProjectDir().getPath() + separator;
     }
 
     apply plugin: "java"
     apply plugin: "idea"
-    apply plugin: "org.springframework.boot"
-    //默认module 不创建bootRepackage，不执行bootRun
-    bootRepackage.enabled = false
-    bootRun.enabled = false
+    apply plugin: "io.spring.dependency-management"
 
     group "com.fewok"
     version "0.0.1-SNAPSHOT"
@@ -110,6 +108,7 @@ subprojects {
             dependency "commons-fileupload:commons-fileupload:1.3.3"
 
             dependency "io.reactivex.rxjava2:rxjava:2.1.8"
+            dependency "co.paralleluniverse:quasar-core:0.7.9"
 
 
             dependency "mysql:mysql-connector-java:6.0.6"
@@ -128,7 +127,7 @@ subprojects {
     //依赖排除
     configurations {
         all*.exclude module: "spring-boot-starter-logging"
-        all*.exclude group: "commons-logging",module: "commons-logging"
+        all*.exclude group: "commons-logging", module: "commons-logging"
         all*.exclude group: "log4j", module: "log4j"
         all*.exclude group: "org.slf4j", module: "slf4j-jdk14"
         all*.exclude group: "org.slf4j", module: "slf4j-log4j12"
@@ -144,7 +143,7 @@ subprojects {
     sourceSets {
         main {
             java {//指定java代码目录
-                srcDir "${subprojectPath}${separator}main${separator}java"
+                srcDir "${subprojectPath}main${separator}java"
                 exclude "resources${separator}**"
             }
         }
@@ -167,16 +166,20 @@ subprojects {
         module {
             downloadJavadoc = false
             downloadSources = false
+
+            inheritOutputDirs = false
+            outputDir = file("$buildDir/classes/java/main/")
+            testOutputDir = file("$buildDir/classes/java/test/")
         }
     }
 
     //强制使用gradle
     task wrapper(type: Wrapper) {
-        gradleVersion = "4.4.1"
+        gradleVersion = "4.5"
     }
 
     //清除out目录
-    clean {
-        delete file("${subprojectPath}${separator}out")
-    }
+//    clean {
+//        delete file("${subprojectPath}out")
+//    }
 }

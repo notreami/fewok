@@ -30,23 +30,6 @@ node {
     nodeModulesDir = file("./node_modules")
 }
 
-sourceSets {
-    main {
-        resources {//指定资源目录
-            srcDir "${subprojectPath}${separator}main${separator}resources"
-        }
-    }
-}
-
-dependencies {
-    compile(
-            project(":fewok-api"),
-            "org.springframework.boot:spring-boot-starter-freemarker"
-    )
-}
-
-
-
 task yarn_build(type: YarnTask, dependsOn: yarn_install) {
     args = ["run", "build"]
 }
