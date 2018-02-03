@@ -6,7 +6,8 @@ dependencies {
     apply from: file("${rootProjectPath}fewok-api${separator}dependencies.gradle"), to: dependencies
     compile(
             "org.springframework.boot:spring-boot-starter-actuator",
-            "org.springframework.boot:spring-boot-starter-hateoas"
+            "org.springframework.boot:spring-boot-starter-hateoas",
+            "org.springframework.boot:spring-boot-devtools"
     )
     testCompile(
             "org.projectlombok:lombok",
@@ -14,9 +15,6 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-test",
             "org.springframework.security:spring-security-test",
             "com.squareup.okhttp3:mockwebserver"
-    )
-    runtime(
-            "org.springframework.boot:spring-boot-devtools"
     )
 }
 
