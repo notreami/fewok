@@ -36,7 +36,6 @@ sourceSets {
     test {
         java {//指定java代码目录
             srcDir "${subprojectPath}test${separator}java"
-            exclude "resources${separator}**"
         }
         resources {//指定资源目录
             srcDir "${subprojectPath}test${separator}resources"
