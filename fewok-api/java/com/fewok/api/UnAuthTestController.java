@@ -1,5 +1,6 @@
 package com.fewok.api;
 
+import com.fewok.common.common.ClientInfo;
 import com.google.common.collect.Maps;
 import com.fewok.biz.service.SimpleService;
 import com.fewok.common.common.CommonOutput;
@@ -17,6 +18,7 @@ import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 未授权认证测试接口
@@ -57,8 +59,18 @@ public class UnAuthTestController {
 
     @GetMapping("/freemarker1")
     public ModelAndView freemarker1(){
-        ModelAndView modelAndView = new ModelAndView("freemarker");
-//        modelAndView.addObject("message", "服务器异常,请重试");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("freemarker");
+        modelAndView.addObject("placeholder","占位");
+
+        ClientInfo clientInfo=ClientInfo.builder()
+                .clientAppKey("test clientAppKey")
+                .clientIp("test if")
+                .platform(ClientInfo.Platform.IPHONE)
+                .originate(ClientInfo.Originate.FT)
+                .uuid(UUID.randomUUID().toString())
+                .build();
+        modelAndView.addObject(clientInfo);
         return modelAndView;
     }
 
