@@ -5,8 +5,8 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.fewok.server.config.filter.BAInterceptor;
 import com.google.common.collect.Lists;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.boot.web.servlet.ErrorPage;
+//import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+//import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -187,15 +187,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 //    }
 
 
-    @Bean
-    public EmbeddedServletContainerCustomizer containerCustomizer() {
-        return (container -> {
-            ErrorPage error401Page = new ErrorPage(HttpStatus.UNAUTHORIZED, "/errors/401.html");
-            ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/errors/404.html");
-            ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/errors/500.html");
-            container.addErrorPages(error401Page, error404Page, error500Page);
-        });
-    }
+//    @Bean
+//    public EmbeddedServletContainerCustomizer containerCustomizer() {
+//        return (container -> {
+//            ErrorPage error401Page = new ErrorPage(HttpStatus.UNAUTHORIZED, "/errors/401.html");
+//            ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/errors/404.html");
+//            ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/errors/500.html");
+//            container.addErrorPages(error401Page, error404Page, error500Page);
+//        });
+//    }
 
     /**
      * 替换默认线程池

@@ -74,8 +74,25 @@ public class UnAuthTestController {
         return modelAndView;
     }
 
+    //把@RestController注解删除掉,替换为@Controller注解
     @GetMapping("/freemarker2")
     public String freemarker2(Model model){
+        model.addAttribute("placeholder","占位");
+
+        ClientInfo clientInfo=ClientInfo.builder()
+                .clientAppKey("test clientAppKey")
+                .clientIp("test if")
+                .platform(ClientInfo.Platform.IPHONE)
+                .originate(ClientInfo.Originate.FT)
+                .uuid(UUID.randomUUID().toString())
+                .build();
+        model.addAttribute("clientInfo",clientInfo);
+        return "freemarker";
+    }
+
+    //把@RestController注解删除掉,替换为@Controller注解
+    @GetMapping("/freemarker3")
+    public String freemarker3(Map<String,Object> map){
         return "freemarker";
     }
 }

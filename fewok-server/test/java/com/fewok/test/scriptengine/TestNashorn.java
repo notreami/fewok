@@ -2,11 +2,13 @@ package com.fewok.test.scriptengine;
 
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import org.testng.annotations.Test;
 
 import javax.script.*;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Phaser;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
@@ -81,5 +83,11 @@ public class TestNashorn {
 
     public static void fun5(ScriptObjectMirror person) {
         System.out.println("Full Name is: " + person.callMember("getFullName"));
+    }
+
+    @Test
+    public void test_phaser(){
+        Phaser phaser=new Phaser();
+        phaser.register();
     }
 }

@@ -58,5 +58,5 @@ jar {
     }
 }
 
-apply from: file("${rootProjectPath}fewok-api${separator}ssr.gradle")
+//apply from: file("${rootProjectPath}fewok-api${separator}ssr.gradle")
 apply from: file("${subprojectPath}docker${separator}docker.gradle")
