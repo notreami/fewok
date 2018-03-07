@@ -7,29 +7,28 @@
 //testRuntime  运行测试所需的依赖。默认情况下，还包括 编译，运行时和测试编译的依赖。
 
 compile(
-
-        //防止包冲突
-        "org.slf4j:slf4j-api",
         "cglib:cglib",
-        "org.springframework.boot:spring-boot-starter-aop",
 
-        //日志方案选择slf4j与log4j2集成,注意别使用commons-logging与jdk-logging、log4j1、logback的集成原理
+        //JSON
+        "org.json:json",
+
+        //日志方案选择slf4j与log4j2集成
         "com.lmax:disruptor",
+        "org.slf4j:slf4j-api",
         "org.apache.logging.log4j:log4j-web",
         "org.apache.logging.log4j:log4j-1.2-api",
         "org.springframework.boot:spring-boot-starter-log4j2",
 
+
         "org.springframework.boot:spring-boot-starter-web",
+        "org.springframework.boot:spring-boot-starter-undertow",
+        "org.springframework.boot:spring-boot-starter-aop",
         "org.springframework.boot:spring-boot-starter-security",
 
         //生成REST文档
         "io.springfox:springfox-swagger-ui",
 
         //                "org.springframework.boot:spring-boot-starter-validation",
-
-        //apache-Commons系列
-        "org.apache.commons:commons-lang3",
-        "org.apache.commons:commons-collections4",
 
         //重试
         "org.springframework.retry:spring-retry",
@@ -42,11 +41,6 @@ compile(
         "org.springframework.boot:spring-boot-starter-cache",
         "com.github.ben-manes.caffeine:caffeine",
 
-        //XML
-        "javax.xml.bind:jaxb-api",
-        //JSON
-        "org.json:json",
-
         //google的guava
         "com.google.guava:guava",
 
@@ -54,6 +48,15 @@ compile(
         "commons-codec:commons-codec",
         "commons-io:commons-io",
         "commons-fileupload:commons-fileupload",
+
+        //apache-Commons系列
+        "org.apache.commons:commons-lang3",
+        "org.apache.commons:commons-collections4",
+
+
+        //XML
+        "javax.xml.bind:jaxb-api",
+
         //excel处理
         "org.apache.poi:poi",
 
@@ -65,7 +68,7 @@ compile(
         "org.springframework.data:spring-data-commons",
         "org.springframework.boot:spring-boot-starter-jdbc",
         //mysql数据源
-        "org.apache.tomcat:tomcat-jdbc",
+        "com.zaxxer:HikariCP",
         //mybatis及对接Spring
         "org.mybatis.spring.boot:mybatis-spring-boot-starter",
         //mybatis 分页插件
