@@ -6,26 +6,22 @@ logging:
   config: classpath:log4j2.xml
 
 management:
-  context-path: /projectManage
-  port: 34613
-  security:
-    enabled: true
-  shell:
-    ssh:
-      enabled: false
-    telnet:
-      enabled: false
+  server:
+    port: 34613
+    servlet:
+      context-path: /projectManage
 
 spring:
   aop:
     auto: true
     proxy-target-class: false  #基于标准的基于Java接口的代理
+  application:
+    name: "fewok"
   cache:
     type: caffeine
-  devtools:
-    remote:
-      debug:
-        enabled: false
+  freemarker:
+    cache: false
+    enabled: true
   http:
     encoding:
       charset: UTF-8
@@ -33,15 +29,8 @@ spring:
       force: true
       force-request: true
       force-response: true
-    multipart:
-      enabled: true
-      max-file-size: 1MB
-      max-request-size: 10MB
   mvc:
     favicon:
-      enabled: false
-  metrics:
-    export:
       enabled: false
   profiles:
     active: dev
@@ -49,24 +38,34 @@ spring:
     store-type: none
   webservices:
     path: /
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1MB
+      max-request-size: 10MB
   transaction:
-    default-timeout: 10000
+    default-timeout: 10000ms
     rollback-on-commit-failure: true
-  freemarker:
-    cache: false
-    enabled: true
+
+
+
 
 server:
-  port: 39368
-  connection-timeout: 10000
-  context-path: /  #应用程序的上下文路径。
-  display-name: "big-backend"
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 2048
+  connection-timeout: 10000ms
   error:
       path: /error #错误页，指定发生错误时，跳转的URL
       whitelabel:
         enabled: true #在服务器发生错误的情况下，启用浏览器中显示的默认错误页面。
-  servlet-path: /  #主调度程序servlet的路径。
+  port: 39368
   use-forward-headers: true #如果X-Forwarded- *头应该应用于HttpRequest。
+  servlet:
+    context-path: /  #应用程序的上下文路径。
+    application-display-name: "fewok"
+    path: /  #主调度程序servlet的路径。
   undertow:  #其他缓存、线程配置，默认即可
     accesslog:
       dir: /opt/logs/fewok/access
@@ -74,21 +73,5 @@ server:
       # 访问时间 线程名 '本机IP:端口/远程主机的IP:端口' '请求方式 请求路径 请求协议'  HTTP状态码  '处理请求所耗费的毫秒数/秒数' '发送字节数' '内容类型'
       pattern: "%t %I '%A:%p/%a:%p' '%m %U %H' %s '%D ms=%T s' '%b/%B/%{o,Content-Length}' '%{o,Content-Type}' '%{i,User-Agent}' '%{i,Referer}'"
       rotate: true
-#  tomcat:
-#    max-http-post-size: 2048  #HTTP发布或放置内容的最大大小（以字节为单位）
-#    port-header: "X-Forwarded-Port"   #nginx   proxy_set_header X-Forwarded-Port $server_port;
-#    protocol-header: "X-Forwarded-Proto" #nginx  proxy_set_header X-Forwarded-Proto $scheme;
-#    remote-ip-header: "X-Forwarded-For"  #nginx  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-#    uri-encoding: UTF-8
-  compression:
-    enabled: true
-    mime-types: application/json,application/xml,text/html,text/xml,text/plain
-    min-response-size: 2048
 
-security:
-  basic:
-    enabled: true
-    path: /AppManage
-  user:
-    name: fewok
-    password: Z##w$@*&wVGGaZ^uD5tL$n^75LEf6o
+

@@ -74,6 +74,13 @@ subprojects {
         dependencies {
             dependency "cglib:cglib:3.2.6"
 
+            dependency "javax.servlet:javax.servlet-api:4.0.0"
+            dependencySet(group: "io.undertow", version: "2.0.1.Final") {
+                entry "undertow-core"
+                entry "undertow-servlet"
+                entry "undertow-websockets-jsr"
+            }
+
             //JSON
             dependency "org.json:json:20180130"
             dependency "com.alibaba:fastjson:1.2.46"
