@@ -47,8 +47,8 @@ public class DataSourceConfig {
         p.setUseStatementFacade(true);//启用equals()和hashCode()调用方法。默认值是true
 
         p.setInitialSize(initialSize);//连接池初始创建的连接数量。默认值是10
-        p.setMaxActive(20);//可以同时从该池中分配的最大活动连接数。默认值是100  推荐的公式：((core_count * 2) + effective_spindle_count)
-        p.setMaxIdle(20);//保留在池中的最大连接数。默认值是100
+        p.setMaxActive(initialSize * 10);//可以同时从该池中分配的最大活动连接数。默认值是100  推荐的公式：((core_count * 2) + effective_spindle_count)
+        p.setMaxIdle(initialSize * 10);//保留在池中的最大连接数。默认值是100
         p.setMinIdle(initialSize);//保留在池中的最小连接数。默认值是10
 
         p.setTestOnConnect(false);//创建连接时是否验证连接。默认值是false
