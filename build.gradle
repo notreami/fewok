@@ -75,7 +75,7 @@ subprojects {
             dependency "cglib:cglib:3.2.6"
 
             dependency "javax.servlet:javax.servlet-api:4.0.0"
-            dependencySet(group: "org.apache.tomcat.embed", version: "9.0.5") {
+            dependencySet(group: "org.apache.tomcat.embed", version: "9.0.6") {
                 entry "tomcat-embed-core"
                 entry "tomcat-embed-el"
                 entry "tomcat-embed-websocket"
@@ -102,14 +102,14 @@ subprojects {
                 entry "mockwebserver"
             }
             //http处理
-            dependencySet(group: "io.github.openfeign", version: "9.5.1") {
+            dependencySet(group: "io.github.openfeign", version: "9.6.0") {
                 entry "feign-okhttp"
                 entry "feign-slf4j"
             }
 
             //mysql数据库
             dependency "mysql:mysql-connector-java:6.0.6"
-            dependencySet(group: "org.apache.tomcat", version: "9.0.5") {
+            dependencySet(group: "org.apache.tomcat", version: "9.0.6") {
                 entry "tomcat-jdbc"
                 entry "tomcat-annotations-api"
             }
@@ -128,7 +128,7 @@ subprojects {
             dependency "com.github.ben-manes.caffeine:caffeine:2.6.2"
 
             //对象深复制
-            "ma.glasnost.orika:orika-core:1.5.2"
+            dependency "ma.glasnost.orika:orika-core:1.5.2"
             //通用工具
             dependency "com.google.guava:guava:24.0-jre"
             dependency "commons-io:commons-io:2.6"
