@@ -3,19 +3,6 @@ package com.fewok.common.common;
 /**
  * @author notreami on 17/11/23.
  */
-public interface BaseInput {
+public interface BaseInput extends TokenId, UserId, Valid {
 
-    /**
-     * 操作流水
-     */
-    String getTraceId();
-
-    /**
-     * 输入校验
-     *
-     * @return
-     */
-    default boolean isValid() {
-        return true;
-    }
 }

@@ -1,10 +1,9 @@
-package com.fewok.dsl.bpm.annotation;
+package com.fewok.dsl.core.annotation;
 
 import org.springframework.stereotype.Component;
 
 /**
- * 流程注入
- * @author notreami on 17/11/23.
+ * @author notreami on 18/3/26.
  */
 @Component
 public @interface Processor {

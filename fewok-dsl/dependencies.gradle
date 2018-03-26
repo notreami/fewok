@@ -15,6 +15,8 @@ compile(
         //日志方案选择slf4j与log4j2集成
         "com.lmax:disruptor",
         "org.slf4j:slf4j-api",
+        "org.slf4j:jcl-over-slf4j",
+        "org.slf4j:jul-to-slf4j",
         "org.apache.logging.log4j:log4j-web",
         "org.apache.logging.log4j:log4j-1.2-api",
         "org.springframework.boot:spring-boot-starter-log4j2",
