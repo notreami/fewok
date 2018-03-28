@@ -1,8 +1,8 @@
 package com.fewok.dsl.core.execute.logic;
 
-import com.fewok.common.common.ObjectId;
 import com.fewok.common.util.JsonBinder;
 import com.fewok.dsl.core.execute.LogicExecutor;
+import com.fewok.dsl.core.execute.ProcessContext;
 import com.fewok.dsl.core.execute.Processor;
 import com.fewok.dsl.core.execute.logic.future.LogicAsyncFuture;
 import com.fewok.dsl.core.execute.logic.future.LogicConcurrentFuture;
@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
  * @author notreami on 18/3/26.
  */
 @Slf4j
-public class SimpleLogicExecutor<IN extends ObjectId, R extends LogicResult> implements LogicExecutor<IN, R> {
+public class SimpleLogicExecutor<P extends ProcessContext, R extends LogicResult> implements LogicExecutor<P, R> {
 
     private ExecutorService executorService;
 
@@ -25,17 +25,17 @@ public class SimpleLogicExecutor<IN extends ObjectId, R extends LogicResult> imp
     }
 
     @Override
-    public Future<R> execute(Processor<IN, R> processor, IN input) {
+    public Future<R> execute(Processor<P, R> processor, P processContext) {
         switch (processor.getInvokeType()) {
             case SYNC:
-                return new LogicAsyncFuture(executorService.submit(new LogicAsyncFuture.LogicCallable<IN, R>(processor, input)));
+                return new LogicAsyncFuture(executorService.submit(new LogicAsyncFuture.LogicCallable<P, R>(processor, processContext)));
             case ASYNC:
-                return new LogicSyncFuture(processor.process(input));
+                return new LogicSyncFuture(processor.process(processContext));
             case CONCURRENT:
-                executorService.submit(new LogicConcurrentFuture.LogicRunnable<IN, R>(processor, input));
+                executorService.submit(new LogicConcurrentFuture.LogicRunnable<P, R>(processor, processContext));
                 return new LogicConcurrentFuture(LogicResult.SUCCESS);
             default:
-                log.error("逻辑执行异常processor={},input={}", JsonBinder.toJSONString(processor), JsonBinder.toJSONString(input));
+                log.error("逻辑执行异常processor={},input={}", JsonBinder.toJSONString(processor), JsonBinder.toJSONString(processContext));
                 return null;
         }
     }

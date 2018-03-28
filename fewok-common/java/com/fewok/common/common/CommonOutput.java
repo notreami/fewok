@@ -18,8 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommonOutput<T> implements BaseOutput {
-    public static CommonOutput OK = CommonOutput.createSuccess(null);
-    public static CommonOutput FAILURE = CommonOutput.createError(ErrorInfo.PROCESS_INFO);
+    public static final CommonOutput OK = CommonOutput.createSuccess(null);
+    public static final CommonOutput PROCESS_INFO = CommonOutput.createError(ErrorInfo.PROCESS_INFO);
+    public static final CommonOutput SYS_ERROR = CommonOutput.createError(ErrorInfo.SYS_INFO);
     /**
      * 操作结果
      */

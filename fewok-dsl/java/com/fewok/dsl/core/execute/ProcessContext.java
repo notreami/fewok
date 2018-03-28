@@ -15,10 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProcessContext<Input extends BaseInput> implements BaseInput, ObjectId {
     private CommonInput<Input> commonInput;
-    /**
-     * 备注
-     */
-    private String description;
 
 
     public static <Input extends BaseInput> ProcessContext<Input> create(CommonInput<Input> commonInput) {
@@ -35,21 +31,21 @@ public class ProcessContext<Input extends BaseInput> implements BaseInput, Objec
 
     @Override
     public boolean isVirtual() {
-        return false;
+        return commonInput.getData().isVirtual();
     }
 
     @Override
     public Long getUserId() {
-        return null;
+        return commonInput.getData().getUserId();
     }
 
     @Override
     public boolean isValid() {
-        return false;
+        return commonInput.getData().isValid();
     }
 
     @Override
     public String getTokenId() {
-        return null;
+        return commonInput.getData().getTokenId();
     }
 }

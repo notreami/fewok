@@ -1,5 +1,6 @@
 package com.fewok.dsl.core.execute.logic.future;
 
+import com.fewok.dsl.core.execute.ProcessContext;
 import com.fewok.dsl.core.execute.Processor;
 import com.fewok.dsl.core.execute.logic.LogicResult;
 
@@ -42,18 +43,18 @@ public class LogicAsyncFuture<R extends LogicResult> implements Future<R> {
     }
 
 
-    public static class LogicCallable<IN, R> implements Callable<R> {
-        private Processor<IN, R> processor;
-        private IN input;
+    public static class LogicCallable<P extends ProcessContext, R> implements Callable<R> {
+        private Processor<P, R> processor;
+        private P processContext;
 
-        public LogicCallable(Processor<IN, R> processor, IN input) {
+        public LogicCallable(Processor<P, R> processor, P processContext) {
             this.processor = processor;
-            this.input = input;
+            this.processContext = processContext;
         }
 
         @Override
         public R call() throws Exception {
-            return processor.process(input);
+            return processor.process(processContext);
         }
     }
 

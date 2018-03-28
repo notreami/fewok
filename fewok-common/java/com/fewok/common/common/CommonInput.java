@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "统一输入模型", description = "统一输入模型")
-public class CommonInput<T extends BaseInput> {
+public class CommonInput<T extends BaseInput> implements Valid {
 
     @ApiModelProperty(value = "调用方信息")
     private ClientInfo clientInfo;
@@ -78,4 +78,8 @@ public class CommonInput<T extends BaseInput> {
     }
 
 
+    @Override
+    public boolean isValid() {
+        return false;
+    }
 }

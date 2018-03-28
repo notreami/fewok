@@ -10,4 +10,19 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public abstract class BaseProcessContextProcessor<P extends ProcessContext> extends BaseProcessor<P, LogicResult> {
+    @Override
+    protected LogicResult createValidFail(ValidResult validResult) {
+        return LogicResult.FAIL;
+    }
+
+    @Override
+    protected LogicResult handleException(P processContext, LogicResult logicResult, Exception e) {
+        log.warn("Process[{}]处理异常,transactionId={}", this.getClass().getSimpleName(), processContext.getObjectId(), e);
+        if (logicResult != null) {
+            return logicResult;
+        } else {
+            return LogicResult.FAIL;
+        }
+    }
+
 }

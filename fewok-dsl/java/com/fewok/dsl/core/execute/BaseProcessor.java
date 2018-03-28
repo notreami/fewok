@@ -13,6 +13,7 @@ public abstract class BaseProcessor<IN, OUT extends BaseOutput> implements Proce
     public OUT process(IN input) {
         OUT output = null;
         try {
+            preProcess(input);
             ValidResult validResult = checkInput(input);
             if (!validResult.isSuccess()) {
                 log.error("Processor前置验证失败: processor={}, message={}", this.getClass().getSimpleName(), validResult.getMessage());
@@ -25,6 +26,10 @@ public abstract class BaseProcessor<IN, OUT extends BaseOutput> implements Proce
         } catch (Exception e) {
             return handleException(input, output, e);
         }
+    }
+
+    protected void preProcess(IN input) {
+        // do something preProcess
     }
 
     protected ValidResult checkInput(IN input) {
@@ -45,9 +50,8 @@ public abstract class BaseProcessor<IN, OUT extends BaseOutput> implements Proce
         // do something afterProcess
     }
 
-    protected OUT handleException(IN input, OUT output, Exception e) {
-        return output;
-    }
+    protected abstract OUT handleException(IN input, OUT output, Exception e);
+
 
     @Data
     protected static class ValidResult implements BaseOutput {

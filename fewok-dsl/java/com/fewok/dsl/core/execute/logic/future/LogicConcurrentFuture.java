@@ -1,5 +1,6 @@
 package com.fewok.dsl.core.execute.logic.future;
 
+import com.fewok.dsl.core.execute.ProcessContext;
 import com.fewok.dsl.core.execute.Processor;
 import com.fewok.dsl.core.execute.logic.LogicResult;
 
@@ -44,18 +45,18 @@ public class LogicConcurrentFuture<R extends LogicResult> implements Future<R> {
         return result;
     }
 
-    public static class LogicRunnable<IN, R extends LogicResult> implements Runnable {
-        private Processor<IN, R> processor;
-        private IN input;
+    public static class LogicRunnable<P extends ProcessContext, R extends LogicResult> implements Runnable {
+        private Processor<P, R> processor;
+        private P processContext;
 
-        public LogicRunnable(Processor<IN, R> processor, IN input) {
+        public LogicRunnable(Processor<P, R> processor, P processContext) {
             this.processor = processor;
-            this.input = input;
+            this.processContext = processContext;
         }
 
         @Override
         public void run() {
-            processor.process(input);
+            processor.process(processContext);
         }
     }
 }
