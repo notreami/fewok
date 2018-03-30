@@ -9,22 +9,22 @@ import lombok.Data;
  * @author notreami on 18/3/26.
  */
 @Data
-public class LogicResult<P extends ProcessContext> implements BaseOutput {
+public class LogicResult<T> implements BaseOutput {
 
     public static final LogicResult SUCCESS = new LogicResult(true);
     public static final LogicResult FAIL = new LogicResult(false);
 
     private boolean success;
     private ErrorInfo errorInfo;
-    private P processContext;
+    private T data;
 
     public LogicResult(boolean success) {
         this.success = success;
     }
 
-    public LogicResult(P processContext) {
+    public LogicResult(T data) {
         this.success = true;
-        this.processContext = processContext;
+        this.data = data;
     }
 
     public LogicResult(ErrorInfo errorInfo) {

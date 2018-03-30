@@ -10,12 +10,14 @@ import java.util.List;
 
 /**
  * 校验参数、判断是否已经创建账号、创建账号、生成并保存登陆token
+ *
  * @author notreami on 18/3/26.
  */
 public class CreateAccountFlow extends BaseProcessContextFlowProcessor<CreateAccountContext> {
+
     @Override
-    protected LogicResult createValidFail(ValidResult validResult) {
-        return null;
+    protected void afterProperties() {
+
     }
 
     @Override
@@ -23,8 +25,5 @@ public class CreateAccountFlow extends BaseProcessContextFlowProcessor<CreateAcc
         return null;
     }
 
-    @Override
-    protected LogicResult doProcess(CreateAccountContext input) throws Exception {
-        return null;
-    }
+
 }

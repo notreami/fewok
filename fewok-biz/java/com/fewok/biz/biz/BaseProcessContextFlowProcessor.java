@@ -28,10 +28,12 @@ public abstract class BaseProcessContextFlowProcessor<P extends ProcessContext> 
 
     protected abstract List<BaseProcessContextProcessor<P>> getProcessors();
 
+    protected abstract void afterProperties();
 
     @Override
     public void afterPropertiesSet() throws Exception {
 //        executor = new SimpleLogicExecutor<P, LogicResult>(taskExecutor);
+        afterProperties();
     }
 
 
