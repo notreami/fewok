@@ -9,6 +9,7 @@ import com.fewok.dsl.util.IdWorker;
 public class TestIdWorker {
 
     public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
         IdWorker.getInstance(0, 0);
         IdWorker snowFlake = IdWorker.getIdWorker();
         for (int i = 0; i < 100; i++) {

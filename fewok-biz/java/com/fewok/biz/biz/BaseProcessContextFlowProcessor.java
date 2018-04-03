@@ -32,10 +32,9 @@ public abstract class BaseProcessContextFlowProcessor<P extends ProcessContext> 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-//        executor = new SimpleLogicExecutor<P, LogicResult>(taskExecutor);
+        executor = new SimpleLogicExecutor<P, LogicResult>(taskExecutor);
         afterProperties();
     }
-
 
     @Override
     protected LogicResult doProcess(P processContext) throws Exception {
@@ -61,10 +60,6 @@ public abstract class BaseProcessContextFlowProcessor<P extends ProcessContext> 
             }
         }
 
-        finalResult = Optional.fromNullable(finalResult).or(LogicResult.FAIL);
-        // 结果应该是请求的业务ID, 而非业务主体ID
-//        finalResult.setData(input.getObjectId());
-
-        return finalResult;
+        return Optional.fromNullable(finalResult).or(LogicResult.SYS_ERROR);
     }
 }

@@ -3,6 +3,7 @@ package com.fewok.dsl.core.execute.logic.future;
 import com.fewok.dsl.core.execute.ProcessContext;
 import com.fewok.dsl.core.execute.Processor;
 import com.fewok.dsl.core.execute.logic.LogicResult;
+import lombok.AllArgsConstructor;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -12,13 +13,9 @@ import java.util.concurrent.TimeoutException;
 /**
  * @author notreami on 18/3/26.
  */
+@AllArgsConstructor
 public class LogicConcurrentFuture<R extends LogicResult> implements Future<R> {
-
     private R result;
-
-    public LogicConcurrentFuture(R result) {
-        this.result = result;
-    }
 
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
@@ -45,14 +42,10 @@ public class LogicConcurrentFuture<R extends LogicResult> implements Future<R> {
         return result;
     }
 
+    @AllArgsConstructor
     public static class LogicRunnable<P extends ProcessContext, R extends LogicResult> implements Runnable {
         private Processor<P, R> processor;
         private P processContext;
-
-        public LogicRunnable(Processor<P, R> processor, P processContext) {
-            this.processor = processor;
-            this.processContext = processContext;
-        }
 
         @Override
         public void run() {

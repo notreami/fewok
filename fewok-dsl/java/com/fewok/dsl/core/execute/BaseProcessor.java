@@ -1,14 +1,18 @@
 package com.fewok.dsl.core.execute;
 
 import com.fewok.common.common.BaseOutput;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 流程控控制基本流程
  * @author notreami on 18/3/26.
  */
 @Slf4j
 public abstract class BaseProcessor<IN, OUT extends BaseOutput> implements Processor<IN, OUT> {
+
     @Override
     public OUT process(IN input) {
         OUT output = null;
@@ -52,21 +56,12 @@ public abstract class BaseProcessor<IN, OUT extends BaseOutput> implements Proce
 
     protected abstract OUT handleException(IN input, OUT output, Exception e);
 
-
     @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     protected static class ValidResult implements BaseOutput {
         public static final ValidResult SUCCESS = new ValidResult(true, "验证成功");
         private boolean success;
         private String message;
-
-        public ValidResult(boolean success, String message) {
-            this.success = success;
-            this.message = message;
-        }
-
-        @Override
-        public boolean isSuccess() {
-            return success;
-        }
     }
 }

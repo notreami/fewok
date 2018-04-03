@@ -3,6 +3,7 @@ package com.fewok.dsl.core.execute;
 import com.fewok.common.common.BaseInput;
 import com.fewok.common.common.CommonInput;
 import com.fewok.common.common.ObjectId;
+import com.fewok.dsl.util.IdWorker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class ProcessContext<Input extends BaseInput> implements BaseInput, Objec
 
     @Override
     public Long getObjectId() {
-        return null;
+        return IdWorker.getIdWorker().nextId();
     }
 
     @Override
@@ -40,12 +41,12 @@ public class ProcessContext<Input extends BaseInput> implements BaseInput, Objec
     }
 
     @Override
-    public boolean isValid() {
-        return commonInput.getData().isValid();
+    public String getTokenId() {
+        return commonInput.getData().getTokenId();
     }
 
     @Override
-    public String getTokenId() {
-        return commonInput.getData().getTokenId();
+    public boolean isValid() {
+        return commonInput.getData().isValid();
     }
 }

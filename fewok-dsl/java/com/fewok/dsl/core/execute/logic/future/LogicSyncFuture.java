@@ -1,6 +1,7 @@
 package com.fewok.dsl.core.execute.logic.future;
 
 import com.fewok.dsl.core.execute.logic.LogicResult;
+import lombok.AllArgsConstructor;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -10,13 +11,9 @@ import java.util.concurrent.TimeoutException;
 /**
  * @author notreami on 18/3/26.
  */
+@AllArgsConstructor
 public class LogicSyncFuture<R extends LogicResult> implements Future<R> {
-
     private R result;
-
-    public LogicSyncFuture(R result) {
-        this.result = result;
-    }
 
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
