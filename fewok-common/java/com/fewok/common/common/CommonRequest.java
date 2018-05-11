@@ -1,7 +1,11 @@
 package com.fewok.common.common;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fewok.common.enums.OperatorType;
+import com.fewok.common.enums.ProcessType;
 import com.fewok.common.util.JsonBinder;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,25 +15,25 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author notreami on 17/11/23.
  */
-
-@Data
 @Slf4j
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommonOutput<T> implements BaseOutput {
-    public static final CommonOutput OK = CommonOutput.createSuccess(null);
-    public static final CommonOutput PROCESS_INFO = CommonOutput.createError(ErrorInfo.PROCESS_INFO);
-    public static final CommonOutput SYS_ERROR = CommonOutput.createError(ErrorInfo.SYS_INFO);
-    /**
-     * 操作结果
-     */
-    private boolean success;
+@ApiModel(value = "统一输入模型", description = "统一输入模型")
+public class CommonRequest<T extends BaseInput> implements Valid {
 
-    /**
-     * 操作错误枚举类型
-     */
-    private ErrorInfo errorInfo;
+    @ApiModelProperty(value = "调用方信息")
+    private ClientInfo clientInfo;
+
+    @ApiModelProperty(value = "操作类型")
+    private ProcessType processType;
+
+    @ApiModelProperty(value = "操作人类型")
+    private OperatorType operatorType;
+
+    @ApiModelProperty(value = "操作人(用户:userId；商家: 登录用户名/账号/联系人 等；客服: 客服编号)")
+    private String operator;
 
     /**
      * 泛型数据ClassName
@@ -38,15 +42,15 @@ public class CommonOutput<T> implements BaseOutput {
     private String dataClassName;
 
     /**
-     * 泛型数据JSON str
+     * 泛型数据JSON串
      */
     @JSONField(serialize = false)
     private String dataJsonValue;
-
     /**
-     * 具体返回数据
+     * 操作对应的数据
      */
     private T data;
+
 
     public T getData() {
         if (data != null) {
@@ -74,27 +78,8 @@ public class CommonOutput<T> implements BaseOutput {
     }
 
 
-    public static <K> CommonOutput<K> createSuccess(K resp) {
-        CommonOutput<K> response = new CommonOutput<>();
-        response.setSuccess(true);
-        response.setData(resp);
-        return response;
+    @Override
+    public boolean isValid() {
+        return false;
     }
-
-    public static <K> CommonOutput<K> createError(ErrorInfo error) {
-        CommonOutput<K> response = new CommonOutput<>();
-        response.setErrorInfo(error);
-        response.setSuccess(false);
-        response.setData(null);
-        return response;
-    }
-
-    public static <K> CommonOutput<K> createError(ErrorInfo error, K resp) {
-        CommonOutput<K> response = new CommonOutput<>();
-        response.setErrorInfo(error);
-        response.setSuccess(false);
-        response.setData(resp);
-        return response;
-    }
-
 }

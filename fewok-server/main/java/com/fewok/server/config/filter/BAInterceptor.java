@@ -1,6 +1,6 @@
 package com.fewok.server.config.filter;
 
-import com.fewok.common.common.CommonOutput;
+import com.fewok.common.common.CommonResponse;
 import com.fewok.common.common.ErrorInfo;
 import com.fewok.common.util.JsonBinder;
 import com.fewok.dsl.util.BasicAuth;
@@ -66,7 +66,7 @@ public class BAInterceptor extends HandlerInterceptorAdapter {
         log.warn("BA failed: " + basicAuthData + " " + method + " " + requestURI);
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-        response.getWriter().write(JsonBinder.toJSONString(CommonOutput.createError(ErrorInfo.STATUS_INFO_ACCESS)));
+        response.getWriter().write(JsonBinder.toJSONString(CommonResponse.createError(ErrorInfo.STATUS_INFO_ACCESS)));
         response.getWriter().flush();
         response.getWriter().close();
         return false;

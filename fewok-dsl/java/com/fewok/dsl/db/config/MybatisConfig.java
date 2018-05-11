@@ -39,7 +39,7 @@ public class MybatisConfig {
 
     @Bean(name = "dataSource")
     public DataSource dataSource() throws SQLException {
-        return DataSourceConfig.getTomcatDataSource(driverClassName, jdbcUrl, userName, password, initialSize);
+        return DataSourceConfig.getHikariDataSource(driverClassName, jdbcUrl, userName, password, initialSize);
     }
 
     @Bean(name = "sqlSessionFactory")

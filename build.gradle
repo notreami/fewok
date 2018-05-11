@@ -8,7 +8,7 @@ buildscript {
         }
         println "total project environment:" + projectEnv
         //插件版本
-        springBootVersion = "2.0.0.RELEASE"
+        springBootVersion = "2.0.1.RELEASE"
         dependencyVersion = "1.0.4.RELEASE"
         gradleDockerVersion = "1.2"
         gradleNodeVersion = "1.2.0"
@@ -75,10 +75,10 @@ subprojects {
             dependency "cglib:cglib:3.2.6"
 
             dependency "javax.servlet:javax.servlet-api:4.0.0"
-            dependencySet(group: "org.apache.tomcat.embed", version: "9.0.6") {
-                entry "tomcat-embed-core"
-                entry "tomcat-embed-el"
-                entry "tomcat-embed-websocket"
+            dependencySet(group: "io.undertow", version: "2.0.4.Final") {
+                entry "undertow-core"
+                entry "undertow-servlet"
+                entry "undertow-websockets-jsr"
             }
 
             //JSON
@@ -86,7 +86,7 @@ subprojects {
             dependency "com.alibaba:fastjson:1.2.47"
 
             //log4j2日志
-            dependency "com.lmax:disruptor:3.4.1"
+            dependency "com.lmax:disruptor:3.4.2"
             dependencySet(group: "org.slf4j", version: "1.7.25") {
                 entry "slf4j-api"
                 entry "jcl-over-slf4j"
@@ -113,10 +113,7 @@ subprojects {
 
             //mysql数据库
             dependency "mysql:mysql-connector-java:6.0.6"
-            dependencySet(group: "org.apache.tomcat", version: "9.0.6") {
-                entry "tomcat-jdbc"
-                entry "tomcat-annotations-api"
-            }
+            dependency "com.zaxxer:HikariCP:3.0.0"
             dependency "org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2"
             dependency "com.github.pagehelper:pagehelper:5.1.2"
 
@@ -153,7 +150,9 @@ subprojects {
 
     //依赖排除
     configurations {
+        all*.exclude module: "spring-boot-starter-tomcat"
         all*.exclude module: "spring-boot-starter-logging"
+        all*.exclude module: "tomcat-jdbc"
         all*.exclude group: "commons-logging", module: "commons-logging"
         all*.exclude group: "log4j", module: "log4j"
         all*.exclude group: "org.slf4j", module: "slf4j-jdk14"
@@ -163,7 +162,6 @@ subprojects {
         all*.exclude group: "org.slf4j", module: "slf4j-jcl"
         all*.exclude group: "ch.qos.logback", module: "logback-core"
         all*.exclude group: "ch.qos.logback", module: "logback-classic"
-        all*.exclude group: "com.zaxxer", module: "HikariCP"
         all*.exclude group: "org.codehaus.jackson"
         all*.exclude group: "junit"
     }

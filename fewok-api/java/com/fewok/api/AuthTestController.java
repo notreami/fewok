@@ -1,6 +1,6 @@
 package com.fewok.api;
 
-import com.fewok.common.common.CommonOutput;
+import com.fewok.common.common.CommonResponse;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -24,28 +24,28 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/api/test")
 public class AuthTestController {
 
-    @ApiOperation(value = "测试登陆接口", response = CommonOutput.class)
+    @ApiOperation(value = "测试登陆接口", response = CommonResponse.class)
     @PostMapping("/login")
-    public CommonOutput login() {
-        return CommonOutput.createSuccess(null);
+    public CommonResponse login() {
+        return CommonResponse.createSuccess(null);
     }
 
     @GetMapping("/hello")
     @PreAuthorize("hasAuthority('AUTH_WRITE') or hasRole('ADMIN')")
-    public CommonOutput hello() {
+    public CommonResponse hello() {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         System.out.println(request.getRemoteAddr());
         System.out.println(request.getRemoteHost());
         System.out.println(request.getRemoteUser());
         System.out.println(getIpAddr(request));
-        return CommonOutput.createSuccess(null);
+        return CommonResponse.createSuccess(null);
     }
 
     @GetMapping("/world")
     @PreAuthorize("hasAuthority('AUTH_WRITE') and hasRole('ADMIN')")
-    public CommonOutput world() {
-        return CommonOutput.createSuccess(null);
+    public CommonResponse world() {
+        return CommonResponse.createSuccess(null);
     }
 
 

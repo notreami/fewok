@@ -3,7 +3,7 @@ package com.fewok.api;
 import com.fewok.common.common.ClientInfo;
 import com.google.common.collect.Maps;
 import com.fewok.biz.service.SimpleService;
-import com.fewok.common.common.CommonOutput;
+import com.fewok.common.common.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +37,7 @@ public class UnAuthTestController {
     private SimpleService simpleService;
 
     @GetMapping("/status/active")
-    public CommonOutput activeStatus() {
+    public CommonResponse activeStatus() {
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
         String datetime = zonedDateTime.getZone().getDisplayName(TextStyle.FULL, Locale.ROOT)
                 + "(" + zonedDateTime.getZone().getDisplayName(TextStyle.SHORT, Locale.ROOT) + ")  "
@@ -49,7 +49,7 @@ public class UnAuthTestController {
         objectMap.put("服务器时区", datetime);
         objectMap.put("数据库连接测试", simpleService.selectSimpleDomainByAll());
         objectMap.put("数据库日期", simpleService.selectSysDate());
-        return CommonOutput.createSuccess(objectMap);
+        return CommonResponse.createSuccess(objectMap);
     }
 
     @GetMapping({"/**/*.html"})

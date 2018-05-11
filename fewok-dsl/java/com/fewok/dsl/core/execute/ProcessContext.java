@@ -1,7 +1,7 @@
 package com.fewok.dsl.core.execute;
 
 import com.fewok.common.common.BaseInput;
-import com.fewok.common.common.CommonInput;
+import com.fewok.common.common.CommonRequest;
 import com.fewok.common.common.ObjectId;
 import com.fewok.dsl.util.IdWorker;
 import lombok.AllArgsConstructor;
@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProcessContext<Input extends BaseInput> implements BaseInput, ObjectId {
-    private CommonInput<Input> commonInput;
+    private CommonRequest<Input> commonRequest;
 
 
-    public static <Input extends BaseInput> ProcessContext<Input> create(CommonInput<Input> commonInput) {
+    public static <Input extends BaseInput> ProcessContext<Input> create(CommonRequest<Input> commonRequest) {
         ProcessContext<Input> processContext = new ProcessContext<>();
-        processContext.setCommonInput(commonInput);
+        processContext.setCommonRequest(commonRequest);
         return processContext;
     }
 
@@ -32,21 +32,21 @@ public class ProcessContext<Input extends BaseInput> implements BaseInput, Objec
 
     @Override
     public boolean isVirtual() {
-        return commonInput.getData().isVirtual();
+        return commonRequest.getData().isVirtual();
     }
 
     @Override
     public Long getUserId() {
-        return commonInput.getData().getUserId();
+        return commonRequest.getData().getUserId();
     }
 
     @Override
     public String getTokenId() {
-        return commonInput.getData().getTokenId();
+        return commonRequest.getData().getTokenId();
     }
 
     @Override
     public boolean isValid() {
-        return commonInput.getData().isValid();
+        return commonRequest.getData().isValid();
     }
 }

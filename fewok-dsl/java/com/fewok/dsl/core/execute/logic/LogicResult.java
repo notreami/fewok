@@ -1,7 +1,7 @@
 package com.fewok.dsl.core.execute.logic;
 
 import com.fewok.common.common.BaseOutput;
-import com.fewok.common.common.CommonOutput;
+import com.fewok.common.common.CommonResponse;
 import com.fewok.common.common.ErrorInfo;
 import com.fewok.dsl.core.execute.ProcessContext;
 import lombok.Data;
@@ -40,14 +40,14 @@ public class LogicResult<T> implements BaseOutput {
         return success;
     }
 
-    public static <T> CommonOutput<T> getInstance(LogicResult<T> flowResult) {
-        CommonOutput<T> commonOutput = new CommonOutput<>();
-        commonOutput.setSuccess(flowResult.isSuccess());
-        commonOutput.setData(flowResult.getData());
+    public static <T> CommonResponse<T> getInstance(LogicResult<T> flowResult) {
+        CommonResponse<T> commonResponse = new CommonResponse<>();
+        commonResponse.setSuccess(flowResult.isSuccess());
+        commonResponse.setData(flowResult.getData());
         if (!flowResult.isSuccess()) {
-            commonOutput.setData(flowResult.getData());
-            commonOutput.setErrorInfo(flowResult.getErrorInfo());
+            commonResponse.setData(flowResult.getData());
+            commonResponse.setErrorInfo(flowResult.getErrorInfo());
         }
-        return commonOutput;
+        return commonResponse;
     }
 }

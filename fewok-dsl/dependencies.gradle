@@ -23,6 +23,7 @@ compile(
 
 
         "org.springframework.boot:spring-boot-starter-web",
+        "org.springframework.boot:spring-boot-starter-undertow",
         "org.springframework.boot:spring-boot-starter-aop",
         "org.springframework.boot:spring-boot-starter-security",
 
@@ -67,7 +68,7 @@ compile(
 
 
         "org.springframework.data:spring-data-commons",
-        "org.springframework.boot:spring-boot-starter-jdbc",
+        "com.zaxxer:HikariCP",
         //mysql数据源
         "org.apache.tomcat:tomcat-jdbc",
         //mybatis及对接Spring

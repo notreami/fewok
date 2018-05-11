@@ -1,6 +1,6 @@
 package com.fewok.api.ucenter;
 
-import com.fewok.common.common.CommonOutput;
+import com.fewok.common.common.CommonResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class UserLoginController {
 
     @ApiOperation(value = "")
     @PostMapping("/login")
-    public CommonOutput login() {
-        return CommonOutput.createSuccess(null);
+    public CommonResponse login() {
+        return CommonResponse.createSuccess(null);
     }
 }
