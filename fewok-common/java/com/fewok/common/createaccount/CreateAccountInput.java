@@ -13,17 +13,8 @@ public class CreateAccountInput implements BaseInput {
     }
 
     @Override
-    public boolean isVirtual() {
-        return false;
-    }
-
-    @Override
     public Long getUserId() {
         return null;
     }
 
-    @Override
-    public boolean isValid() {
-        return false;
-    }
 }

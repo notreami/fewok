@@ -1,6 +1,6 @@
 package com.fewok;
 
-import com.fewok.dsl.util.IdWorker;
+import com.fewok.dsl.core.bpm.util.IdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.fewok.dsl.util;
+package com.fewok.dsl.core.bpm.util;
 
 /**
  * twitter的snowflake算法 -- java实现<br>
@@ -19,7 +19,7 @@ public class IdWorker {
      * 起始的时间戳，可以修改为服务第一次启动的时间
      * 一旦服务已经开始使用，起始时间戳就不应该改变
      */
-    private static final long ORIGIN_EPOCH = 1288834974657L;
+    private static final long ORIGIN_EPOCH = 1522719856603L;
 
     /**
      * 每一部分占用的位数
@@ -43,26 +43,20 @@ public class IdWorker {
     private static final long WORKER_ID_SHIFT = SEQUENCE_BITS;                                            //机器标识id向左移12位
 
     private long lastTimestamp = -1L;   //上一次时间戳
-    private long datacenterId;          //数据标识id(0~31)
+    private long dataCenterId;          //数据标识id(0~31)
     private long workerId;              //机器标识id(0~31)
     private long sequence = 0L;         //序列号(0~4095)
 
     private static IdWorker idWorker;
 
     /**
-     * 双检锁/双重校验锁（DCL，即 double-checked locking）
-     *
-     * @param datacenterId
+     * @param dataCenterId
      * @param workerId
      * @return
      */
-    public static IdWorker getInstance(long datacenterId, long workerId) {
+    public synchronized static IdWorker getInstance(long dataCenterId, long workerId) {
         if (idWorker == null) {
-            synchronized (IdWorker.class) {
-                if (idWorker == null) {
-                    idWorker = new IdWorker(datacenterId, workerId);
-                }
-            }
+            idWorker = new IdWorker(dataCenterId, workerId);
         }
         return idWorker;
     }
@@ -75,17 +69,17 @@ public class IdWorker {
      * 通过单例模式来获取实例
      * 分布式部署服务时，数据标识id和机器标识id作为联合键必须唯一
      *
-     * @param datacenterId 数据标识id(0~31)
+     * @param dataCenterId 数据标识id(0~31)
      * @param workerId     机器标识id(0~31)
      */
-    private IdWorker(long datacenterId, long workerId) {
-        if (datacenterId > MAX_DATACENTER_ID || datacenterId < 0) {
+    private IdWorker(long dataCenterId, long workerId) {
+        if (dataCenterId > MAX_DATACENTER_ID || dataCenterId < 0) {
             throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", MAX_DATACENTER_ID));
         }
         if (workerId > MAX_WORKER_ID || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", MAX_WORKER_ID));
         }
-        this.datacenterId = datacenterId;
+        this.dataCenterId = dataCenterId;
         this.workerId = workerId;
     }
 
@@ -116,7 +110,7 @@ public class IdWorker {
         lastTimestamp = timestamp;
 
         return ((timestamp - ORIGIN_EPOCH) << TIMESTAMP_LEFT_SHIFT)  //时间戳部分
-                | (datacenterId << DATACENTER_ID_SHIFT)             //数据标识id部分
+                | (dataCenterId << DATACENTER_ID_SHIFT)             //数据标识id部分
                 | (workerId << WORKER_ID_SHIFT)                     //机器标识id部分
                 | sequence;                                       //序列号部分
     }

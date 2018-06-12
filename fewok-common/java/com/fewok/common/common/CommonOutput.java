@@ -14,13 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommonResponse<T> implements BaseOutput {
-    public static final CommonResponse OK = CommonResponse.createSuccess(null);
-    public static final CommonResponse PROCESS_INFO = CommonResponse.createError(ErrorInfo.PROCESS_INFO);
-    public static final CommonResponse SYS_ERROR = CommonResponse.createError(ErrorInfo.SYS_INFO);
+public class CommonOutput<T> implements BaseOutput {
+    public static final CommonOutput PARAM_ERROR = createError(StatusInfo.PARAM_ERROR);
+    public static final CommonOutput UNKNOWN_ERROR = createError(StatusInfo.UNKNOWN_ERROR);
     /**
      * 操作结果
      */
@@ -29,7 +27,7 @@ public class CommonResponse<T> implements BaseOutput {
     /**
      * 操作错误枚举类型
      */
-    private ErrorInfo errorInfo;
+    private StatusInfo statusInfo;
 
     /**
      * 泛型数据ClassName
@@ -73,28 +71,28 @@ public class CommonResponse<T> implements BaseOutput {
         }
     }
 
-
-    public static <K> CommonResponse<K> createSuccess(K resp) {
-        CommonResponse<K> response = new CommonResponse<>();
-        response.setSuccess(true);
-        response.setData(resp);
-        return response;
+    public static <T> CommonOutput<T> createSuccess(T resp, StatusInfo info) {
+        CommonOutput<T> result = new CommonOutput<>();
+        result.setSuccess(true);
+        result.setStatusInfo(info);
+        result.setData(resp);
+        return result;
     }
 
-    public static <K> CommonResponse<K> createError(ErrorInfo error) {
-        CommonResponse<K> response = new CommonResponse<>();
-        response.setErrorInfo(error);
-        response.setSuccess(false);
-        response.setData(null);
-        return response;
+    public static <T> CommonOutput<T> createError(StatusInfo info) {
+        CommonOutput<T> result = new CommonOutput<>();
+        result.setSuccess(false);
+        result.setStatusInfo(info);
+        result.setData(null);
+        return result;
     }
 
-    public static <K> CommonResponse<K> createError(ErrorInfo error, K resp) {
-        CommonResponse<K> response = new CommonResponse<>();
-        response.setErrorInfo(error);
-        response.setSuccess(false);
-        response.setData(resp);
-        return response;
+    public static <T> CommonOutput<T> createError(T resp, StatusInfo info) {
+        CommonOutput<T> result = new CommonOutput<>();
+        result.setSuccess(false);
+        result.setStatusInfo(info);
+        result.setData(resp);
+        return result;
     }
 
 }

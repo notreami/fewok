@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public abstract class BaseProcessor<IN, OUT extends BaseOutput> implements Processor<IN, OUT> {
+
     /**
      * 流程基本执行过程
      *
@@ -102,5 +103,4 @@ public abstract class BaseProcessor<IN, OUT extends BaseOutput> implements Proce
      * @return 最终输出
      */
     protected abstract OUT handleException(IN input, OUT output, Exception e);
-
 }

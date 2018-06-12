@@ -1,9 +1,10 @@
 package com.fewok.api;
 
 import com.fewok.common.common.ClientInfo;
+import com.fewok.common.common.CommonOutput;
+import com.fewok.common.common.StatusInfo;
 import com.google.common.collect.Maps;
 import com.fewok.biz.service.SimpleService;
-import com.fewok.common.common.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +38,7 @@ public class UnAuthTestController {
     private SimpleService simpleService;
 
     @GetMapping("/status/active")
-    public CommonResponse activeStatus() {
+    public CommonOutput activeStatus() {
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
         String datetime = zonedDateTime.getZone().getDisplayName(TextStyle.FULL, Locale.ROOT)
                 + "(" + zonedDateTime.getZone().getDisplayName(TextStyle.SHORT, Locale.ROOT) + ")  "
@@ -49,7 +50,7 @@ public class UnAuthTestController {
         objectMap.put("服务器时区", datetime);
         objectMap.put("数据库连接测试", simpleService.selectSimpleDomainByAll());
         objectMap.put("数据库日期", simpleService.selectSysDate());
-        return CommonResponse.createSuccess(objectMap);
+        return CommonOutput.createSuccess(objectMap, StatusInfo.OK);
     }
 
     @GetMapping({"/**/*.html"})
@@ -58,12 +59,12 @@ public class UnAuthTestController {
     }
 
     @GetMapping("/freemarker1")
-    public ModelAndView freemarker1(){
+    public ModelAndView freemarker1() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("freemarker");
-        modelAndView.addObject("placeholder","占位");
+        modelAndView.addObject("placeholder", "占位");
 
-        ClientInfo clientInfo=ClientInfo.builder()
+        ClientInfo clientInfo = ClientInfo.builder()
                 .clientAppKey("test clientAppKey")
                 .clientIp("test if")
                 .platform(ClientInfo.Platform.IPHONE)
@@ -76,23 +77,23 @@ public class UnAuthTestController {
 
     //把@RestController注解删除掉,替换为@Controller注解
     @GetMapping("/freemarker2")
-    public String freemarker2(Model model){
-        model.addAttribute("placeholder","占位");
+    public String freemarker2(Model model) {
+        model.addAttribute("placeholder", "占位");
 
-        ClientInfo clientInfo=ClientInfo.builder()
+        ClientInfo clientInfo = ClientInfo.builder()
                 .clientAppKey("test clientAppKey")
                 .clientIp("test if")
                 .platform(ClientInfo.Platform.IPHONE)
                 .originate(ClientInfo.Originate.FT)
                 .uuid(UUID.randomUUID().toString())
                 .build();
-        model.addAttribute("clientInfo",clientInfo);
+        model.addAttribute("clientInfo", clientInfo);
         return "freemarker";
     }
 
     //把@RestController注解删除掉,替换为@Controller注解
     @GetMapping("/freemarker3")
-    public String freemarker3(Map<String,Object> map){
+    public String freemarker3(Map<String, Object> map) {
         return "freemarker";
     }
 }

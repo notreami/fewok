@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "统一输入模型", description = "统一输入模型")
-public class CommonRequest<T extends BaseInput> implements Valid {
+public class CommonInput<T extends BaseInput> {
 
     @ApiModelProperty(value = "调用方信息")
     private ClientInfo clientInfo;
@@ -75,11 +75,5 @@ public class CommonRequest<T extends BaseInput> implements Valid {
             setDataClassName(data.getClass().getName());
             setDataJsonValue(JsonBinder.toJSONString(data));
         }
-    }
-
-
-    @Override
-    public boolean isValid() {
-        return false;
     }
 }
