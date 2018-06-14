@@ -9,7 +9,7 @@ buildscript {
         println "total project environment:" + projectEnv
         //插件版本
         springBootVersion = "2.0.2.RELEASE"
-        dependencyVersion = "1.0.4.RELEASE"
+        dependencyVersion = "1.0.5.RELEASE"
         gradleDockerVersion = "1.2"
         gradleNodeVersion = "1.2.0"
     }
@@ -75,7 +75,7 @@ subprojects {
             dependency "cglib:cglib:3.2.6"
 
             dependency "javax.servlet:javax.servlet-api:4.0.1"
-            dependencySet(group: "io.undertow", version: "2.0.6.Final") {
+            dependencySet(group: "io.undertow", version: "2.0.9.Final") {
                 entry "undertow-core"
                 entry "undertow-servlet"
                 entry "undertow-websockets-jsr"
@@ -113,13 +113,13 @@ subprojects {
 
             //mysql数据库
             dependency "mysql:mysql-connector-java:8.0.11"
-            dependency "com.zaxxer:HikariCP:3.1.0"
+            dependency "com.zaxxer:HikariCP:3.2.0"
             dependency "org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2"
             dependency "com.github.pagehelper:pagehelper:5.1.4"
 
-            dependency "io.reactivex.rxjava2:rxjava:2.1.13"
+            dependency "io.reactivex.rxjava2:rxjava:2.1.14"
             //协程
-            dependency "co.paralleluniverse:quasar-core:0.7.9"
+            dependency "co.paralleluniverse:quasar-core:0.7.10"
 
             //http接口文档
             dependency "io.springfox:springfox-swagger2:2.8.0"
@@ -131,7 +131,7 @@ subprojects {
             //对象深复制
             dependency "ma.glasnost.orika:orika-core:1.5.2"
             //通用工具
-            dependency "com.google.guava:guava:25.0-jre"
+            dependency "com.google.guava:guava:25.1-jre"
             dependency "commons-io:commons-io:2.6"
             dependency "commons-fileupload:commons-fileupload:1.3.3"
             dependency "org.apache.commons:commons-lang3:3.7"
@@ -142,7 +142,7 @@ subprojects {
             //excel处理
             dependency "org.apache.poi:poi:3.17"
             //csv处理
-            dependency "com.opencsv:opencsv:4.1"
+            dependency "com.opencsv:opencsv:4.2"
 
             dependency "org.testng:testng:6.14.3"
         }
