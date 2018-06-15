@@ -36,24 +36,18 @@ public abstract class BaseExecutorProcessor<Input extends BaseInput, Holder> ext
     protected abstract ProcessExecutor<ProcessContext<Input, Holder>, ExecuteResult> getProcessExecutor();
 
     /**
-     * 流程编排
-     */
-    private Promise promise;
-
-    /**
      * 流程执行器
      */
     private ProcessExecutor<ProcessContext<Input, Holder>, ExecuteResult> processExecutor;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        promise = getPromise();
         processExecutor = getProcessExecutor();
     }
 
     @Override
     protected ProcessResult doProcess(ProcessContext<Input, Holder> processContext) throws Exception {
-        ExecuteContext executeContext = new ExecuteContext(promise);
+        ExecuteContext executeContext = new ExecuteContext(getPromise());
         ExecuteContext.Arrange arrange = executeContext.getArrange();
         if (arrange == null) {
             return ProcessResult.SKIP;
@@ -113,8 +107,7 @@ public abstract class BaseExecutorProcessor<Input extends BaseInput, Holder> ext
                 continue;
             }
 
-            int executeTotal = executeInfo.getExecuteTotal();
-            for (int r = 1; r < executeTotal; r++) {
+            for (int r = 1; r < executeInfo.getExecuteTotal(); r++) {
                 executeProcessor(executeInfo, processContext);
                 executeResult = getExecuteResult(executeInfo);
                 if (executeResult != null && executeResult.isSuccess()) {
@@ -189,9 +182,8 @@ public abstract class BaseExecutorProcessor<Input extends BaseInput, Holder> ext
      * @param processContext
      */
     private void executeProcessor(ExecuteContext.ExecuteInfo executeInfo, ProcessContext<Input, Holder> processContext) {
-        BaseActivityProcessor activityProcessor = executeInfo.getActivityProcessor();
         executeInfo.setExecuteCount(executeInfo.getExecuteCount() + 1);
-        Future<ExecuteResult> future = processExecutor.execute(activityProcessor, processContext);
+        Future<ExecuteResult> future = processExecutor.execute(executeInfo.getActivityProcessor(), processContext);
         executeInfo.setFuture(future);
     }
 
