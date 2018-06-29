@@ -28,12 +28,12 @@ public class SimpleProcessExecutor<P extends ProcessContext, R extends ExecuteRe
 
     @Override
     public Future<R> execute(Processor<P, R> processor, P processContext) {
-        InvokeType invokeType = processor.getInvokeType();
+        InvokeType invokeType = processor.getProcessRule().getInvokeType();
         if (invokeType == null) {
             log.error("执行异常invokeType=null,processor={},processContext={}", processor.getProcessorName(), JsonBinder.toJSONString(processContext));
             return null;
         }
-        switch (processor.getInvokeType()) {
+        switch (processor.getProcessRule().getInvokeType()) {
             case SYNC:
                 return new SyncExecuteFuture<>(processor.process(processContext));
             case ASYNC:

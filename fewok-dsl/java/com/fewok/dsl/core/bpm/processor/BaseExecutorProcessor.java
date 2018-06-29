@@ -89,13 +89,13 @@ public abstract class BaseExecutorProcessor<Input extends BaseInput, Holder> ext
             arrange.setEndIndex(i);
             executeInfo = arrange.getExecuteInfoList().get(i);
             activityProcessor = executeInfo.getActivityProcessor();
-            if (arrange.isNotSync() && activityProcessor.isWaitBeforeProcessor() && i != arrange.getBeginIndex()) {
+            if (arrange.isNotSync() && activityProcessor.getProcessRule().isWaitBeforeProcessor() && i != arrange.getBeginIndex()) {
                 break;
             }
 
 
             executeProcessor(executeInfo, processContext);
-            if (activityProcessor.getInvokeType() != InvokeType.SYNC) {
+            if (activityProcessor.getProcessRule().getInvokeType() != InvokeType.SYNC) {
                 if (!arrange.isNotSync()) {
                     arrange.setNotSync(true);
                 }
@@ -130,7 +130,7 @@ public abstract class BaseExecutorProcessor<Input extends BaseInput, Holder> ext
         for (int i = arrange.getBeginIndex(); i < arrange.getEndIndex(); i++) {
             executeInfo = arrange.getExecuteInfoList().get(i);
             activityProcessor = executeInfo.getActivityProcessor();
-            if (activityProcessor.getInvokeType() == InvokeType.SYNC) {
+            if (activityProcessor.getProcessRule().getInvokeType() == InvokeType.SYNC) {
                 continue;
             }
 
@@ -202,7 +202,7 @@ public abstract class BaseExecutorProcessor<Input extends BaseInput, Holder> ext
         ExecuteResult executeResult = null;
         BaseActivityProcessor activityProcessor = executeInfo.getActivityProcessor();
         try {
-            executeResult = future.get(activityProcessor.getTimeoutMillis(), TimeUnit.MILLISECONDS);
+            executeResult = future.get(activityProcessor.getProcessRule().getTimeoutMillis(), TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             log.error("获取Process执行结果异常", e);
         } catch (TimeoutException e) {

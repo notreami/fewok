@@ -105,7 +105,7 @@ public class ExecuteContext {
     }
 
     private ExecuteInfo wrapExecuteInfo(BaseActivityProcessor activityProcessor) {
-        int retryCount = activityProcessor.getRetryCount();
+        int retryCount = activityProcessor.getProcessRule().getRetryCount();
         int executeTotal = retryCount <= 0 ? 1 : retryCount + 1;
 
         ExecuteInfo executeInfo = new ExecuteInfo();
