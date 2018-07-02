@@ -2,10 +2,10 @@ package com.fewok.dsl.core.bpm.processor;
 
 import com.fewok.common.common.BaseInput;
 import com.fewok.common.common.StatusInfo;
-import com.fewok.common.util.JsonBinder;
 import com.fewok.dsl.core.bpm.ProcessExecutor;
 import com.fewok.dsl.core.bpm.container.*;
 import com.fewok.dsl.core.bpm.type.InvokeType;
+import com.fewok.dsl.core.bpm.util.JsonProcess;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -227,7 +227,7 @@ public abstract class BaseExecutorProcessor<Input extends BaseInput, Holder> ext
 
     @Override
     protected ProcessResult handleException(ProcessContext<Input, Holder> processContext, ProcessResult processResult, Exception e) {
-        log.error("Process[{}]处理异常,processId={},processContext={}", getProcessorName(), processContext.getProcessId(), JsonBinder.toJSONString(processContext), e);
+        log.error("Process[{}]处理异常,processId={},processContext={}", getProcessorName(), processContext.getProcessId(), JsonProcess.toJSONString(processContext), e);
         if (processResult == null) {
             processResult = new ProcessResult();
         }

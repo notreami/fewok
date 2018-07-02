@@ -1,9 +1,9 @@
 package com.fewok.dsl.core.bpm.processor;
 
 import com.fewok.common.common.BaseOutput;
-import com.fewok.common.util.JsonBinder;
 import com.fewok.dsl.core.bpm.Processor;
 import com.fewok.dsl.core.bpm.container.ExecuteResult;
+import com.fewok.dsl.core.bpm.util.JsonProcess;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -27,7 +27,7 @@ public abstract class BaseProcessor<IN, OUT extends BaseOutput> implements Proce
             preProcess(input);
             ExecuteResult executeResult = checkInput(input);
             if (!executeResult.isSuccess()) {
-                log.error("Processor前置验证失败: processor={}, message={}, input={}", getProcessorName(), executeResult.getStatusInfo().getMessage(), JsonBinder.toJSONString(input));
+                log.error("Processor前置验证失败: processor={}, message={}, input={}", getProcessorName(), executeResult.getStatusInfo().getMessage(), JsonProcess.toJSONString(input));
                 return handleCheckFail(executeResult);
             }
             beforeProcess(input);

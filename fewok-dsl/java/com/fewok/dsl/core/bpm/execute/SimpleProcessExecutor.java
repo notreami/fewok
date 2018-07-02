@@ -1,6 +1,5 @@
 package com.fewok.dsl.core.bpm.execute;
 
-import com.fewok.common.util.JsonBinder;
 import com.fewok.dsl.core.bpm.ProcessExecutor;
 import com.fewok.dsl.core.bpm.Processor;
 import com.fewok.dsl.core.bpm.container.ExecuteResult;
@@ -9,6 +8,7 @@ import com.fewok.dsl.core.bpm.execute.future.AsyncExecuteFuture;
 import com.fewok.dsl.core.bpm.execute.future.ParallelExecuteFuture;
 import com.fewok.dsl.core.bpm.execute.future.SyncExecuteFuture;
 import com.fewok.dsl.core.bpm.type.InvokeType;
+import com.fewok.dsl.core.bpm.util.JsonProcess;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -30,7 +30,7 @@ public class SimpleProcessExecutor<P extends ProcessContext, R extends ExecuteRe
     public Future<R> execute(Processor<P, R> processor, P processContext) {
         InvokeType invokeType = processor.getProcessRule().getInvokeType();
         if (invokeType == null) {
-            log.error("执行异常invokeType=null,processor={},processContext={}", processor.getProcessorName(), JsonBinder.toJSONString(processContext));
+            log.error("执行异常invokeType=null,processor={},processContext={}", processor.getProcessorName(), JsonProcess.toJSONString(processContext));
             return null;
         }
         switch (processor.getProcessRule().getInvokeType()) {
@@ -42,7 +42,7 @@ public class SimpleProcessExecutor<P extends ProcessContext, R extends ExecuteRe
                 taskExecutor.submit(new ParallelExecuteFuture.ExecuteRunnable<>(processor, processContext));
                 return new ParallelExecuteFuture(ExecuteResult.OK);
             default:
-                log.error("执行异常invokeType={},processor={},processContext={}", invokeType, processor.getProcessorName(), JsonBinder.toJSONString(processContext));
+                log.error("执行异常invokeType={},processor={},processContext={}", invokeType, processor.getProcessorName(), JsonProcess.toJSONString(processContext));
                 return null;
         }
     }

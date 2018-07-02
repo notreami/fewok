@@ -2,9 +2,9 @@ package com.fewok.dsl.core.bpm.processor;
 
 import com.fewok.common.common.BaseInput;
 import com.fewok.common.common.StatusInfo;
-import com.fewok.common.util.JsonBinder;
 import com.fewok.dsl.core.bpm.container.ExecuteResult;
 import com.fewok.dsl.core.bpm.container.ProcessContext;
+import com.fewok.dsl.core.bpm.util.JsonProcess;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -22,7 +22,7 @@ public abstract class BaseActivityProcessor<Input extends BaseInput, Holder> ext
 
     @Override
     protected ExecuteResult handleException(ProcessContext<Input, Holder> processContext, ExecuteResult executeResult, Exception e) {
-        log.error("Process[{}]处理异常,processId={},processContext={}", getProcessorName(), processContext.getProcessId(), JsonBinder.toJSONString(processContext), e);
+        log.error("Process[{}]处理异常,processId={},processContext={}", getProcessorName(), processContext.getProcessId(), JsonProcess.toJSONString(processContext), e);
         if (executeResult == null) {
             executeResult = new ExecuteResult();
         }

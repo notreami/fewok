@@ -1,9 +1,9 @@
 package com.fewok.dsl.core.bpm.processor;
 
 import com.fewok.common.common.*;
-import com.fewok.common.util.JsonBinder;
 import com.fewok.dsl.core.bpm.container.ExecuteResult;
 import com.fewok.dsl.core.bpm.util.IdGenerator;
+import com.fewok.dsl.core.bpm.util.JsonProcess;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -28,7 +28,7 @@ public abstract class BaseFlowProcessor<Input extends BaseInput, Output> extends
             commonInput.setDataJsonValue(null);
         }
 
-        log.info("preProcess:{}", JsonBinder.toJSONString(commonInput));
+        log.info("preProcess:{}", JsonProcess.toJSONString(commonInput));
     }
 
     @Override
@@ -47,7 +47,7 @@ public abstract class BaseFlowProcessor<Input extends BaseInput, Output> extends
 
     @Override
     protected CommonOutput<Output> handleException(CommonInput<Input> commonInput, CommonOutput<Output> commonResponse, Exception e) {
-        String msg = String.format("Process[%s]处理异常,commonInput=%s", getProcessorName(), JsonBinder.toJSONString(commonInput));
+        String msg = String.format("Process[%s]处理异常,commonInput=%s", getProcessorName(), JsonProcess.toJSONString(commonInput));
         log.error(msg, e);
         return CommonOutput.UNKNOWN_ERROR;
     }
