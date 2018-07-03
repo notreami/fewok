@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <!--<script type="text/javascript" src="${urls.getForLookupPath('/webjars/vue/dist/vue.min.js')}"></script>-->
+    <!--<script type="text/javascript" src="${urls.getForLookupPath('/webjars/axios/dist/axios.min.js')}"></script>-->
+
+
+    <script type="text/javascript" th:src="@{/webjars/vue/dist/vue.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/axios/dist/axios.min.js}"></script>
+
+    <title>thymeleaf study!</title>
+</head>
+<body>
+thymeleaf learn
+插值1:<P class="text-primary" th:text="${placeholder}"></p>
+插值2:<p th:text="${clientInfo.clientAppKey}"></p>
+
+
+<!--html 注释 输出-->
+<!--/* thymeleaf 注释 不会输出 */-->
+
+
+</body>
+</html>

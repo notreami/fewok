@@ -19,9 +19,12 @@ spring:
     name: "fewok"
   cache:
     type: caffeine
-  freemarker:
+  thymeleaf:
     cache: false
     enabled: true
+    check-template: false
+    check-template-location: false
+    enable-spring-el-compiler: true
   http:
     encoding:
       charset: UTF-8
@@ -46,6 +49,12 @@ spring:
   transaction:
     default-timeout: 10000ms
     rollback-on-commit-failure: true
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**/*.js,/**/*.css
 
 
 

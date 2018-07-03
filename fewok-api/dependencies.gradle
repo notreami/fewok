@@ -1,5 +1,5 @@
 compile(
-        "org.springframework.boot:spring-boot-starter-freemarker",
+        "org.springframework.boot:spring-boot-starter-thymeleaf",
         "org.webjars.bower:vue",
         "org.webjars.bower:axios",
         "org.webjars:webjars-locator"

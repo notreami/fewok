@@ -58,10 +58,10 @@ public class UnAuthTestController {
         return request.getServletPath();
     }
 
-    @GetMapping("/freemarker1")
-    public ModelAndView freemarker1() {
+    @GetMapping("/thymeleaf1")
+    public ModelAndView thymeleaf1() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("freemarker");
+        modelAndView.setViewName("thymeleaf");
         modelAndView.addObject("placeholder", "占位");
 
         ClientInfo clientInfo = ClientInfo.builder()
@@ -76,8 +76,8 @@ public class UnAuthTestController {
     }
 
     //把@RestController注解删除掉,替换为@Controller注解
-    @GetMapping("/freemarker2")
-    public String freemarker2(Model model) {
+    @GetMapping("/thymeleaf2")
+    public String thymeleaf2(Model model) {
         model.addAttribute("placeholder", "占位");
 
         ClientInfo clientInfo = ClientInfo.builder()
@@ -88,12 +88,12 @@ public class UnAuthTestController {
                 .uuid(UUID.randomUUID().toString())
                 .build();
         model.addAttribute("clientInfo", clientInfo);
-        return "freemarker";
+        return "thymeleaf";
     }
 
     //把@RestController注解删除掉,替换为@Controller注解
-    @GetMapping("/freemarker3")
-    public String freemarker3(Map<String, Object> map) {
-        return "freemarker";
+    @GetMapping("/thymeleaf3")
+    public String thymeleaf3(Map<String, Object> map) {
+        return "thymeleaf";
     }
 }
