@@ -16,8 +16,8 @@ buildscript {
 
     repositories {
         mavenLocal()
-        maven { url "http://maven.aliyun.com/nexus/content/repositories/central/" }
-        maven { url "https://plugins.gradle.org/m2/" }
+//        maven { url "http://maven.aliyun.com/nexus/content/repositories/central/" }
+//        maven { url "https://plugins.gradle.org/m2/" }
         mavenCentral()
     }
 
@@ -72,7 +72,7 @@ subprojects {
     //依赖管理（依赖版本管理）
     dependencyManagement {
         dependencies {
-            dependency "cglib:cglib:3.2.6"
+            dependency "cglib:cglib:3.2.7"
 
             dependency "javax.servlet:javax.servlet-api:4.0.1"
             dependencySet(group: "io.undertow", version: "2.0.9.Final") {
@@ -117,13 +117,13 @@ subprojects {
             dependency "org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2"
             dependency "com.github.pagehelper:pagehelper:5.1.4"
 
-            dependency "io.reactivex.rxjava2:rxjava:2.1.14"
+            dependency "io.reactivex.rxjava2:rxjava:2.1.16"
             //协程
             dependency "co.paralleluniverse:quasar-core:0.7.10"
 
             //http接口文档
-            dependency "io.springfox:springfox-swagger2:2.8.0"
-            dependency "io.springfox:springfox-swagger-ui:2.8.0"
+            dependency "io.springfox:springfox-swagger2:2.9.2"
+            dependency "io.springfox:springfox-swagger-ui:2.9.2"
 
             //内置缓存
             dependency "com.github.ben-manes.caffeine:caffeine:2.6.2"

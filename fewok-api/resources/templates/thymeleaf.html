@@ -4,26 +4,36 @@
     <meta charset="UTF-8">
     <title>thymeleaf+vue+iview</title>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/iview/iview.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/atui/0.1.32/greater-blue.css}">
+
     <script type="text/javascript" th:src="@{/webjars/vue/dist/vue.min.js}"></script>
-    <script type="text/javascript" th:src="@{/iview/iview.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/axios/dist/axios.min.js}"></script>
+    <script type="text/javascript" th:src="@{/atui/0.1.32/atui.js}"></script>
 
 </head>
 <body>
 <div id="app">
-    <i-button @click="show">Click me!</i-button>
-    <Modal v-model="visible" title="Welcome">Welcome to iView</Modal>
+    <!--<v-button primary @click.native="onClick">这是一个按钮</v-button>-->
+    <!--<v-date-picker style="width: 219px" v-model="date" format="yyyyMMdd" :disabled-date="(date) => { return date.getMonth() === 1 }"></v-date-picker>-->
+    <!--<v-button @click.native="setDate">setDate</v-button>-->
+    <range-picker @change="change" format="yyyy-MM-dd" :start-date="new Date()"></range-picker>
 </div>
 <script>
     new Vue({
-        el: '#app',
-        data: {
-            visible: false
+        el:'#app',
+        components: {
+            // 注册组件
+            vRow: atui.Layout.Row,
+            vCol: atui.Layout.Col,
+            // vDatePicker: atui.DatePicker,
+            rangePicker: atui.DatePicker.RangePicker,
+            value: new Date()
         },
         methods: {
-            show: function () {
-                this.visible = true;
+            onClick () {
+                alert('button click')
+            },change(){
+
             }
         }
     })

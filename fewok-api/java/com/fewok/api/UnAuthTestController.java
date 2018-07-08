@@ -53,10 +53,10 @@ public class UnAuthTestController {
         return CommonOutput.createSuccess(objectMap, StatusInfo.OK);
     }
 
-    @GetMapping({"/**/*.html"})
-    public String testHold(HttpServletRequest request) {
-        return request.getServletPath();
-    }
+//    @GetMapping({"/**/*.html"})
+//    public String testHold(HttpServletRequest request) {
+//        return request.getServletPath();
+//    }
 
     @GetMapping("/thymeleaf1")
     public ModelAndView thymeleaf1() {
