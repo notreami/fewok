@@ -14,7 +14,9 @@ dependencies {
             "org.testng:testng",
             "org.springframework.boot:spring-boot-starter-test",
             "org.springframework.security:spring-security-test",
-            "com.squareup.okhttp3:mockwebserver"
+            "com.squareup.okhttp3:mockwebserver",
+            "io.projectreactor:reactor-test",
+            "de.flapdoodle.embed:de.flapdoodle.embed.mongo"
     )
 }
 

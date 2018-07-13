@@ -8,7 +8,7 @@ buildscript {
         }
         println "total project environment:" + projectEnv
         //插件版本
-        springBootVersion = "2.0.2.RELEASE"
+        springBootVersion = "2.0.3.RELEASE"
         dependencyVersion = "1.0.5.RELEASE"
         gradleDockerVersion = "1.2"
         gradleNodeVersion = "1.2.0"
@@ -65,7 +65,7 @@ subprojects {
 
     //修改默认的依赖版本
     ext {
-//        ext["json.version"] = "20180130"
+        ext["lombok.version"] = "1.18.0"
 //        ext["caffeine.version"] = "2.6.2"
 
     }
@@ -111,12 +111,6 @@ subprojects {
                 entry "feign-slf4j"
             }
 
-            //mysql数据库
-            dependency "mysql:mysql-connector-java:8.0.11"
-            dependency "com.zaxxer:HikariCP:3.2.0"
-            dependency "org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2"
-            dependency "com.github.pagehelper:pagehelper:5.1.4"
-
             dependency "io.reactivex.rxjava2:rxjava:2.1.16"
             //协程
             dependency "co.paralleluniverse:quasar-core:0.7.10"
@@ -135,7 +129,7 @@ subprojects {
             dependency "commons-io:commons-io:2.6"
             dependency "commons-fileupload:commons-fileupload:1.3.3"
             dependency "org.apache.commons:commons-lang3:3.7"
-            dependency "org.apache.commons:commons-collections4:4.1"
+            dependency "org.apache.commons:commons-collections4:4.2"
 
             //xml处理
             dependency "javax.xml.bind:jaxb-api:2.3.0"

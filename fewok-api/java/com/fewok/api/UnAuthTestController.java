@@ -48,8 +48,8 @@ public class UnAuthTestController {
         Map<String, Object> objectMap = Maps.newHashMap();
         objectMap.put("当前环境", projectEnv);
         objectMap.put("服务器时区", datetime);
-        objectMap.put("数据库连接测试", simpleService.selectSimpleDomainByAll());
-        objectMap.put("数据库日期", simpleService.selectSysDate());
+//        objectMap.put("数据库连接测试", simpleService.selectSimpleDomainByAll());
+//        objectMap.put("数据库日期", simpleService.selectSysDate());
         return CommonOutput.createSuccess(objectMap, StatusInfo.OK);
     }
 

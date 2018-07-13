@@ -1,7 +1,6 @@
 package com.fewok.dsl.db.dao;
 
 import com.fewok.dsl.db.domain.SimpleDomain;
-import com.fewok.dsl.db.mapper.SimpleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,14 +14,5 @@ import java.util.List;
 @Slf4j
 @Component
 public class SimpleDao {
-    @Resource
-    private SimpleMapper simpleMapper;
 
-    public List<SimpleDomain> selectSimpleDomainByAll() {
-        return simpleMapper.selectSimpleDomainByAll();
-    }
-
-    public Date selectSysDate(){
-        return simpleMapper.selectSysDate();
-    }
 }

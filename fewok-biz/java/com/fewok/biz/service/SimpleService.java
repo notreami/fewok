@@ -18,11 +18,4 @@ public class SimpleService {
     @Resource
     private SimpleDao simpleDao;
 
-    public List<SimpleDomain> selectSimpleDomainByAll() {
-        return simpleDao.selectSimpleDomainByAll();
-    }
-
-    public Date selectSysDate() {
-        return simpleDao.selectSysDate();
-    }
 }

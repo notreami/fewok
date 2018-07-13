@@ -23,9 +23,11 @@ compile(
 
 
         "org.springframework.boot:spring-boot-starter-web",
+        "org.springframework.boot:spring-boot-starter-webflux",
         "org.springframework.boot:spring-boot-starter-undertow",
         "org.springframework.boot:spring-boot-starter-aop",
         "org.springframework.boot:spring-boot-starter-security",
+        "org.springframework.security:spring-security-webflux",
 
         //生成REST文档
         "io.springfox:springfox-swagger-ui",
@@ -65,19 +67,9 @@ compile(
         //RxJava
         "io.reactivex.rxjava2:rxjava",
 
-
-
-        "org.springframework.data:spring-data-commons",
-        "com.zaxxer:HikariCP",
-        //mysql数据源
-        "org.apache.tomcat:tomcat-jdbc",
-        //mybatis及对接Spring
-        "org.mybatis.spring.boot:mybatis-spring-boot-starter",
-        //mybatis 分页插件
-        "com.github.pagehelper:pagehelper"
-)
-
-runtime(
-        //mysql驱动
-        "mysql:mysql-connector-java"
+        //MongoDB数据库
+        "org.springframework.boot:spring-boot-starter-data-mongodb",
+        "org.springframework.boot:spring-boot-starter-data-mongodb-reactive",
+        "org.springframework.data:spring-data-mongodb-cross-store",
+        "org.apache.logging.log4j:log4j-mongodb"
 )
