@@ -8,7 +8,7 @@ buildscript {
         }
         println "total project environment:" + projectEnv
         //插件版本
-        springBootVersion = "2.0.3.RELEASE"
+        springBootVersion = "2.0.2.RELEASE"
         dependencyVersion = "1.0.5.RELEASE"
         gradleDockerVersion = "1.2"
         gradleNodeVersion = "1.2.0"
@@ -65,7 +65,7 @@ subprojects {
 
     //修改默认的依赖版本
     ext {
-        ext["lombok.version"] = "1.18.0"
+//        ext["lombok.version"] = "1.18.0"
 //        ext["caffeine.version"] = "2.6.2"
 
     }

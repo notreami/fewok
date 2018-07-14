@@ -27,7 +27,7 @@ compile(
         "org.springframework.boot:spring-boot-starter-undertow",
         "org.springframework.boot:spring-boot-starter-aop",
         "org.springframework.boot:spring-boot-starter-security",
-        "org.springframework.security:spring-security-webflux",
+//        "org.springframework.security:spring-security-webflux",
 
         //生成REST文档
         "io.springfox:springfox-swagger-ui",
