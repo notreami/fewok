@@ -35,6 +35,8 @@ spring:
   mvc:
     favicon:
       enabled: false
+    servlet:
+      path: /
     static-path-pattern: /**
   profiles:
     active: dev
@@ -56,7 +58,6 @@ spring:
     chain:
       cache: false
       enabled: true
-      gzipped: true
       strategy:
         content:
           enabled: true
@@ -80,7 +81,6 @@ server:
   servlet:
     context-path: /  #应用程序的上下文路径。
     application-display-name: "fewok"
-    path: /  #主调度程序servlet的路径。
   undertow:  #其他缓存、线程配置，默认即可
     accesslog:
       dir: /opt/logs/fewok/access

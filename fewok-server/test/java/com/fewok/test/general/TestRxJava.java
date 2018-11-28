@@ -18,27 +18,27 @@ import java.util.stream.Stream;
 public class TestRxJava {
 
     public static void main(String[] args) throws InterruptedException {
-        long time1=System.currentTimeMillis();
-        Stream.of(1, 2, 3, 4).forEach(x -> {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        long time2=System.currentTimeMillis();
-
-        Arrays.asList(6, 2, 9, 4).parallelStream().forEach(x -> {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        long time3=System.currentTimeMillis();
-
-        System.out.println(time2-time1);
-        System.out.println(time3-time2);
+//        long time1=System.currentTimeMillis();
+//        Stream.of(1, 2, 3, 4).forEach(x -> {
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        long time2=System.currentTimeMillis();
+//
+//        Arrays.asList(6, 2, 9, 4).parallelStream().forEach(x -> {
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        long time3=System.currentTimeMillis();
+//
+//        System.out.println(time2-time1);
+//        System.out.println(time3-time2);
 
         Flux.range(1, 1000)
                 .log()

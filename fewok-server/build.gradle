@@ -1,8 +1,6 @@
 apply plugin: "org.springframework.boot"
 
 dependencies {
-    apply from: file("${rootProjectPath}fewok-common${separator}dependencies.gradle"), to: dependencies
-    apply from: file("${rootProjectPath}fewok-dsl${separator}dependencies.gradle"), to: dependencies
     apply from: file("${rootProjectPath}fewok-api${separator}dependencies.gradle"), to: dependencies
     compile(
             "org.springframework.boot:spring-boot-starter-actuator",
@@ -23,13 +21,9 @@ dependencies {
 sourceSets {
     main {
         java {//指定java代码目录
-            srcDir "${rootProjectPath}fewok-common${separator}java"
-            srcDir "${rootProjectPath}fewok-dsl${separator}java"
-            srcDir "${rootProjectPath}fewok-biz${separator}java"
             srcDir "${rootProjectPath}fewok-api${separator}java"
         }
         resources {//指定资源目录
-            srcDir "${rootProjectPath}fewok-dsl${separator}resources"
             srcDir "${rootProjectPath}fewok-api${separator}resources"
             srcDir "${subprojectPath}main${separator}resources${separator}base"
             srcDir "${subprojectPath}main${separator}resources${separator}${projectEnv}"
